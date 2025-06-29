@@ -31,29 +31,11 @@ height="30" width="40" /></a>
 🏷️**Rev1.0: [July-2025].**  
 
 
-<img src="https://github.com/user-attachments/assets/59d00ff9-9155-41c1-a961-e18d9ace62cd" style="transform: rotate(180deg);" height="600" width="780">  
+<img src="https://github.com/user-attachments/assets/e4db9297-9971-4c09-8c15-fc0017d1340d" height="831" width="993">  
 
-#### ArduLora I/O Pins 
-| **Pin Name** | **Note** |  
-| :---: | :---: |    
-| PA8 | Led YELLOW color |  
-| PA9 | Led RED color |  
-| PB2 | Led BLUE color |   
-| PA11 | I2C_SDA |  
-| PA12 | I2C_SCL |  
-| PB4 | Analog input 1 Range 0-10V |  
-| PA10 | Analog input 2 Range 0-10V |  
-| PB5 | Enable power 3.3V for sensor | 
-| PB6 | UART1_TX (RS485) |  
-| PB7 | UART1_TX (RS485) |  
-| PB3 | ADC Battery (ADC1) |  
-
-  
 ## Examples
 ### How to Use Digital IO  
 ##### Blink led  
-  
-- Use Arduino [digitalRead](https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/) to read the value from a specified Digital I/O pin, either HIGH or LOW.
 - Use Arduino [digitalWrite](https://www.arduino.cc/reference/en/language/functions/digital-io/digitalwrite/) to write a HIGH or a LOW value to a Digital I/O pin.
   
 > **tip 📝 NOTE:**  
