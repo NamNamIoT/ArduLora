@@ -31,7 +31,8 @@ height="30" width="40" /></a>
 🏷️**Rev1.0: [July-2025].**  
 
 
-<img src="https://github.com/user-attachments/assets/e4db9297-9971-4c09-8c15-fc0017d1340d" height="831" width="993">  
+<img src="https://github.com/user-attachments/assets/e4db9297-9971-4c09-8c15-fc0017d1340d" 
+     style="max-width: 100%; height: auto; object-fit: contain;">
 
 ## Examples
 ### How to Use Digital IO  
