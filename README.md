@@ -39,19 +39,19 @@ height="30" width="40" /></a>
 
 #### ArduLora I/O Pins 
 
-| **Alternative Pin Usage** | **Pin Name (V3.5)** | **Note** |  
-| :---: | :---: | :---: |    
-|LED_SEND | PA8 | Led YELLOW color |  
-|LED_SYNC | PA9 | Led RED color |  
-|LED_RECV | PB2 | Led BLUE color |   
-|I2C_SDA | PA11 | I2C pin |  
-|I2C_SCL | PA12 | I2C pin |  
-|AI1_PIN  | PB4 | Range 0-10V |  
-|AI2_PIN  | PA10 | Range 0-10V |  
-|3.3V_ext  | PB5 | Enable power 3.3V for sensor | 
-|UART1_TX | PB6 | Pin RS485 ModbusRTU |  
-|UART1_RX | PB7 | Pin RS485 ModbusRTU |  
-|ABAT | PB3 | ADC Battery (ADC1) |  
+| **Pin Name** | **Note** |  
+| :---: | :---: |    
+| PA8 | Led YELLOW color |  
+| PA9 | Led RED color |  
+| PB2 | Led BLUE color |   
+| PA11 | I2C_SDA |  
+| PA12 | I2C_SCL |  
+| PB4 | Analog input 1 Range 0-10V |  
+| PA10 | Analog input 2 Range 0-10V |  
+| PB5 | Enable power 3.3V for sensor | 
+| PB6 | UART1_TX (RS485) |  
+| PB7 | UART1_TX (RS485) |  
+| PB3 | ADC Battery (ADC1) |  
 
   
 ## Examples
