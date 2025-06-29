@@ -68,8 +68,6 @@ height="30" width="40" /></a>
 **Example code blink led on ArduLora board**
 
 ```c
-#include <ArduLora.h>
-
 void setup()
 {
   pinMode(LED_SEND, OUTPUT); //Change the LED_SEND to any digital pin you want. Also, you can set this to INPUT or OUTPUT
@@ -102,8 +100,6 @@ Use Arduino [analogRead](https://www.arduino.cc/reference/en/language/functions/
 **Example code read analog on ArduLora board**
 
 ```c
-#include <ArduLora.h>  // Include the ArduLora library header file.
-
 void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud rate.
   Serial.println("Canopus Analog Example");  // Print a message indicating the start of the program.
@@ -146,8 +142,6 @@ Modbus RTU use Serial1 on ArduLora board
 ```c
 #include "Canopus_Modbus.h"
 ModbusMaster node;
-#include <ArduLora.h>
-
 uint8_t result;
 void setup()
 {
@@ -202,8 +196,6 @@ Value 40009: 10
 **Example Code modbus slave update value register**
 
 ```c
-#include <ArduLora.h>
-
 #include "modbus.h"
 #include "modbusDevice.h"
 #include "modbusRegBank.h"
@@ -259,8 +251,6 @@ Make sure you have an I2C device connected to specified I2C pins to run the I2C 
 
 ```c
 #include <Wire.h>
-#include <ArduLora.h>
-
 void setup()
 {
   init_io();
@@ -329,8 +319,6 @@ The Arduino Serial Monitor shows the I2C device found.
 #include <Arduino.h>  // Include the Arduino core library.
 #include <Wire.h>  // Include the Wire library for I2C communication.
 #include <ArtronShop_SHT3x.h>  // Include the SHT3x library.
-#include <ArduLora.h>  // Include the ArduLora library header file.
-
 ArtronShop_SHT3x sht3x(0x44, &Wire);  // ADDR: 0 => 0x44, ADDR: 1 => 0x45
 
 void setup() {
@@ -378,7 +366,6 @@ The Arduino Serial Monitor shows value.
 #include <Arduino.h>  // Include the Arduino core library.
 #include <Wire.h>  // Include the Wire library for I2C communication.
 #include <ArtronShop_BH1750.h>  // Include the BH1750 library.
-#include <ArduLora.h>  // Include the ArduLora library header file.
 
 ArtronShop_BH1750 bh1750(0x23, &Wire); // Non Jump ADDR: 0x23, Jump ADDR: 0x5C
 
@@ -416,8 +403,6 @@ The Arduino Serial Monitor shows value.
 ### Lora P2P
 ##### Sender
 ```c
-#include <ArduLora.h>
-
 long startTime;
 bool rx_done = false;
 double myFreq = 868000000;
@@ -520,8 +505,6 @@ void loop() {
 
 ##### Receive
 ```c
-#include <ArduLora.h>
-
 long startTime;
 bool rx_done = false;
 double myFreq = 868000000;
@@ -638,14 +621,12 @@ void loop()
 /***
  *  This example shows time function, including millis, micros, delay, delayMicroseconds.
 ***/
-
 long delayTime = 1000;		// variable for setting the delay time 
 
 void setup()
 {
     // initialize serial communication at 115200 bits per second
     Serial.begin(115200);
-
     Serial.println("RAKwireless Arduino Time Example");
     Serial.println("------------------------------------------------------");
 }
@@ -693,7 +674,6 @@ void handler(void *data)
 void setup()
 {
     Serial.begin(115200);
-  
     Serial.println("RAKwireless System Timer Example");
     Serial.println("------------------------------------------------------");
   
@@ -751,11 +731,10 @@ void loop()
 
 ##### GPS
 ```c
-#include <ArduLora.h>
 #include <TinyGPSPlus.h>
+
 TinyGPSPlus gps; //GPS ATGM336H
 void setup() {
-  
   Serial.begin(115200);
   Serial1.begin(9600);
   init_io();
