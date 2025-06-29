@@ -69,14 +69,14 @@ height="30" width="40" /></a>
 ```c
 void setup()
 {
-  pinMode(LED_SEND, OUTPUT); //Change the LED_SEND to any digital pin you want. Also, you can set this to INPUT or OUTPUT
+  pinMode(PA9, OUTPUT); //Change the PA9 to any digital pin you want. Also, you can set this to INPUT or OUTPUT
 }
 
 void loop()
 {
-  digitalWrite(LED_SEND, HIGH); //Change the LED_SEND to any digital pin you want. Also, you can set this to HIGH or LOW state.
+  digitalWrite(PA9, HIGH); //Change the PA9 to any digital pin you want. Also, you can set this to HIGH or LOW state.
   delay(1000); // delay for 1 second
-  digitalWrite(LED_SEND, LOW); //Change the LED_SEND to any digital pin you want. Also, you can set this to HIGH or LOW state.
+  digitalWrite(PA9, LOW); //Change the PA9 to any digital pin you want. Also, you can set this to HIGH or LOW state.
   delay(1000); // delay for 1 second
 }
 ```
@@ -86,10 +86,10 @@ void loop()
 ##### Read analog  
 You can use any of the pins below as Analog Input.
 
-| **Analog Port** | **Pin Name** | **Onboard** |
-| --------------- | ------------ | ----------- |
-| ADC4 (0-10V)    |  PA10        | AI1          |
-| ADC5 (0-10V)    |  PA15        | AI2          |
+| **Pin Name** | **Onboard** |
+| ------------ | ----------- |
+|  PB4         | AI1         |
+|  PA10        | AI2         |
 
 
 Use Arduino [analogRead](https://www.arduino.cc/reference/en/language/functions/analog-io/analogread/) to read the value from the specified Analog Input pin.
@@ -101,7 +101,7 @@ Use Arduino [analogRead](https://www.arduino.cc/reference/en/language/functions/
 ```c
 void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud rate.
-  Serial.println("Canopus Analog Example");  // Print a message indicating the start of the program.
+  Serial.println("ArduLora Analog Example");  // Print a message indicating the start of the program.
   Serial.println("------------------------------------------------------");  // Print a separator line.
   init_io();
   enable_Vss5();
@@ -167,7 +167,7 @@ void loop()
     }
   }
   else Serial.print("Read Fail node 1"); //read fail
-  digitalWrite(LED_SYNC, !digitalRead(LED_SYNC)); //blink led
+  digitalWrite(PA8, !digitalRead(PA8)); //blink led
   delay(500);
 }
 
@@ -224,7 +224,7 @@ void loop()
   
   regBank.set(40001, analog_In);  //Update value for 40001 is analog_In
   slave.run();  //Run service modbus RTU slave
-  digitalWrite(LED_SYNC, !digitalRead(LED_SYNC)); //blink led
+  digitalWrite(PA8, !digitalRead(PA8)); //blink led
   delay(200);
 }
 ```
@@ -430,13 +430,13 @@ void recv_cb(rui_lora_p2p_recv_t data) {
     Serial.println("Empty buffer.");
     return;
   }
-  digitalWrite(LED_RECV, HIGH);
+  digitalWrite(PB2, HIGH);
   char buff[92];
   sprintf(buff, "Incoming message, length: %d, RSSI: %d, SNR: %d",
           data.BufferSize, data.Rssi, data.Snr);
   Serial.println(buff);
   hexDump(data.Buffer, data.BufferSize);
-  digitalWrite(LED_RECV, LOW);
+  digitalWrite(PB2, LOW);
 }
 
 void send_cb(void) {
@@ -497,7 +497,7 @@ void loop() {
   }
   Serial.printf("P2P send Success\r\n");
   delay(1000);
-  digitalWrite(LED_SYNC, !digitalRead(LED_SYNC));
+  digitalWrite(PA8, !digitalRead(PA8));
 }
 ```
 [Click go top](#Quick-access-panel)
@@ -515,12 +515,12 @@ void recv_cb(rui_lora_p2p_recv_t data) {
     Serial.println("Empty buffer.");
     return;
   }
-  digitalWrite(LED_RECV, HIGH);
+  digitalWrite(PB2, HIGH);
   char buff[92];
   sprintf(buff, "Incoming message, length: %d, RSSI: %d, SNR: %d",
           data.BufferSize, data.Rssi, data.Snr);
   Serial.println(buff);
-  digitalWrite(LED_RECV, LOW);
+  digitalWrite(PB2, LOW);
 }
 
 void send_cb(void) {
@@ -575,7 +575,7 @@ void loop() {
   if (rx_done) {
     rx_done = false;
     while (!send_result) {
-      digitalWrite(LED_SEND, HIGH);
+      digitalWrite(PA9, HIGH);
       send_result = api.lorawan.psend(sizeof(payload), payload);
       Serial.printf("P2P send %s\r\n", send_result ? "Success" : "Fail");
       if (!send_result) {
@@ -583,10 +583,10 @@ void loop() {
         delay(1000);
       }
     }
-    digitalWrite(LED_SEND, LOW);
+    digitalWrite(PA9, LOW);
   }
   delay(500);
-  digitalWrite(LED_SYNC, !digitalRead(LED_SYNC));
+  digitalWrite(PA8, !digitalRead(PA8));
 }
 ```
 [Click go top](#Quick-access-panel)
