@@ -1,7 +1,7 @@
 
-# RAK3172_Canopus communication with Lora Ra02
+# ArduLora communication with Lora Ra02
   
-<img src="https://github.com/NamNamIoT/RAK3172_CANOPUS/assets/49629370/7da1e890-1e2c-4b1b-82d6-35317b26b6f7" height="450"><img src="https://user-images.githubusercontent.com/49629370/64397342-2c133a80-d08b-11e9-9520-96f3bfae00c6.jpg" height="450">
+<img src="https://github.com/NamNamIoT/ArduLora/assets/49629370/7da1e890-1e2c-4b1b-82d6-35317b26b6f7" height="450"><img src="https://user-images.githubusercontent.com/49629370/64397342-2c133a80-d08b-11e9-9520-96f3bfae00c6.jpg" height="450">
 
 🧑🏻‍🔧Setting:  
 SetPreambleLength(8);  
@@ -9,7 +9,7 @@ SetSpreadingFactor(12);
 SetSignalBandwidth(125E3);  //125KHz  
 SetCodingRate4(5);  
   
-**Code on RAK3172_Canopus board**
+**Code on ArduLora board**
 
 ```c
 long startTime;
@@ -71,7 +71,7 @@ void setup() {
   pinMode(PA8, OUTPUT);
   digitalWrite(PA8, HIGH);
   Serial.begin(115200);
-  Serial.println("RAK3172_Canopus LoRaWan P2P Example");
+  Serial.println("ArduLora LoRaWan P2P Example");
   Serial.println("------------------------------------------------------");
   delay(2000);
   startTime = millis();
@@ -136,7 +136,7 @@ The Arduino Serial Monitor shows :
 02:40:53.283 ->    +------------------------------------------------+ +----------------+
 02:40:53.327 ->    |.0 .1 .2 .3 .4 .5 .6 .7 .8 .9 .a .b .c .d .e .f | |      ASCII     |
 02:40:53.327 ->    +------------------------------------------------+ +----------------+
-02:40:53.327 ->  0.|48 65 6c 6c 6f 20 52 61 6b 33 31 37 32          | |Hello Rak3172   |
+02:40:53.327 ->  0.|48 65 6c 6c 6f 20 52 61 6b 33 31 37 32          | |Hello ArduLora   |
 02:40:53.327 ->    +------------------------------------------------+ +----------------+
 02:40:53.624 -> P2P send Success
 02:40:54.764 -> P2P set Rx mode Success
@@ -196,7 +196,7 @@ void setup() {
 
 void loop() {
   if (millis() - lastSendTime > interval) {
-    String message = "Hello Rak3172";  // send a message
+    String message = "Hello ArduLora";  // send a message
     sendMessage(message);
     Serial.println("Sending " + message);
     lastSendTime = millis();  // timestamp the message
@@ -232,12 +232,12 @@ void onReceive(int packetSize) {
 The Arduino Serial Monitor shows :
 
 ```c
-02:38:56.907 -> Sending Hello Rak3172
+02:38:56.907 -> Sending Hello ArduLora
 02:38:58.180 -> Recieve: Hello Ra02
 02:38:58.212 -> RSSI: -31
 02:38:58.212 -> Snr: 9.50
 02:38:58.249 -> 
-02:39:01.063 -> Sending Hello Rak3172
+02:39:01.063 -> Sending Hello ArduLora
 02:39:02.705 -> Recieve: Hello Ra02
 02:39:02.705 -> RSSI: -31
 02:39:02.751 -> Snr: 10.25
