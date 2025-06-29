@@ -1,6 +1,5 @@
 
 # ArduLora Board Quick Start Guide  
-## ✌️✌️ Welcome! ✌️✌️  
 
 <p align="left">
 <a href="https://fb.com/kuem0912" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="kuem0912" 
@@ -49,7 +48,7 @@ height="30" width="40" /></a>
 |I2C_SCL | PA12 | I2C pin |  
 |AI1_PIN  | PB4 | 0-10V |  
 |AI2_PIN  | PA10 | 0-10V |  
-|V_SS3  | PB5 | Enable power 3.3V | 
+|3.3V_ext  | PB5 | Enable power 3.3V for sensor | 
 |UART1_TX | PB6 | RS485 ModbusRTU |  
 |UART1_RX | PB7 | RS485 ModbusRTU |  
 |ABAT | PB3 | ADC Battery |  
