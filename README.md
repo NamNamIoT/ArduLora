@@ -72,7 +72,7 @@ You can use any of the pins below as Analog Input.
 
 Use Arduino [analogRead](https://www.arduino.cc/reference/en/language/functions/analog-io/analogread/) to read the value from the specified Analog Input pin.
 
-<img src="https://github.com/NamNamIoT/ArduLora/assets/49629370/c48d3ecc-73a6-4a35-ae64-f4ed497c8023" height="400" width="270"><img src="https://user-images.githubusercontent.com/49629370/224522583-21ff739b-7f3b-4a7d-9697-72e8b69e8c4a.png" height="400" width="500">
+<img src="https://user-images.githubusercontent.com/49629370/224522583-21ff739b-7f3b-4a7d-9697-72e8b69e8c4a.png" style="max-width: 100%; height: auto; object-fit: contain;">
   
 **Example code read analog on ArduLora board**
 
@@ -228,7 +228,7 @@ There is one I2C peripheral available on ArduLora.
 
 - Use Arduino [Wire](https://www.arduino.cc/reference/en/language/functions/communication/wire/) library to communicate with I2C devices.
 
-<img src="https://github.com/NamNamIoT/ArduLora/assets/49629370/a8da41d4-12a5-4daa-89a1-7c62a2648887" height="350" width="250"><img src="https://user-images.githubusercontent.com/49629370/224522611-246efbcf-a1fb-4503-9ea5-41dc0b514656.png" height="350" width="500">
+<img src="https://user-images.githubusercontent.com/49629370/224522611-246efbcf-a1fb-4503-9ea5-41dc0b514656.png" style="max-width: 100%; height: auto; object-fit: contain;">
 
 **Example Code I2C**  
 ***Scan I2C***  
