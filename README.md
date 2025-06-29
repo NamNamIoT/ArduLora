@@ -103,16 +103,17 @@ void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud rate.
   Serial.println("ArduLora Analog Example");  // Print a message indicating the start of the program.
   Serial.println("------------------------------------------------------");  // Print a separator line.
-  init_io();
-  enable_Vss5();
+  //Enable power for external sensor
+  pinMode(PB5, OUTPUT);
+  digitalWrite(PB5, HIGH);
   analogReadResolution(12);  // Set analog read resolution to 12 bits.
 }
 
 void loop() {
-  float AI1 = analogRead(AI1_PIN)*2.58;         // Read analog voltage from pin AI1_PIN and store it in AI1.
+  float AI1 = analogRead(PB4)*2.58;         // Read analog voltage from pin PB4 and store it in AI1.
   Serial.printf("AI1 = %0.0fmV\r\n", AI1); // Print the analog voltage value of AI1 in millivolts.
 
-  float AI2 = analogRead(AI2_PIN)*2.58;         // Read analog voltage from pin AI2_PIN and store it in AI2.
+  float AI2 = analogRead(PA10)*2.58;         // Read analog voltage from pin PA10 and store it in AI2.
   Serial.printf("AI2 = %0.0fmV\r\n", AI2); // Print the analog voltage value of AI2 in millivolts.
 
   delay(1000);  // Wait for 1 second before the next iteration of the loop.
@@ -144,8 +145,12 @@ ModbusMaster node;
 uint8_t result;
 void setup()
 {
-  init_io();
-  enable_Vrs485();
+  //Enable power for external sensor
+  pinMode(PB5, OUTPUT);
+  digitalWrite(PB5, HIGH);
+
+  #Led PA8 as output
+  pinMode(PA8, OUTPUT);
   Serial.begin(115200);
   Serial.print("\r\n*****************ArduLora*******************");
   Serial_Canopus.begin(9600, SERIAL_8N1);
@@ -204,9 +209,12 @@ modbusSlave slave;
 
 void setup()
 {
-  init_io();
-  enable_Vrs485();
-  
+  //Enable power for external sensor
+  pinMode(PB5, OUTPUT);
+  digitalWrite(PB5, HIGH);
+
+  //Led PA8 as output
+  pinMode(PA8, OUTPUT);
   Serial.begin(115200);
   Serial.print("\r\n*****************ArduLora*******************");
   
@@ -220,7 +228,7 @@ void setup()
 }
 void loop()
 {
-  int analog_In = analogRead(AI1_PIN); 
+  int analog_In = analogRead(PB4); 
   
   regBank.set(40001, analog_In);  //Update value for 40001 is analog_In
   slave.run();  //Run service modbus RTU slave
@@ -252,8 +260,9 @@ Make sure you have an I2C device connected to specified I2C pins to run the I2C 
 #include <Wire.h>
 void setup()
 {
-  init_io();
-  enable_Vss3();
+  //Enable power for external sensor
+  pinMode(PB5, OUTPUT);
+  digitalWrite(PB5, HIGH);
   Wire.begin();
   Serial.begin(115200);
   while (!Serial);
@@ -323,8 +332,9 @@ ArtronShop_SHT3x sht3x(0x44, &Wire);  // ADDR: 0 => 0x44, ADDR: 1 => 0x45
 void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud rate.
   Serial.print("\r\n************ArduLora**************");  // Print a message indicating the start of the program.
-  init_io();
-  enable_Vss3();
+  //Enable power for external sensor
+  pinMode(PB5, OUTPUT);
+  digitalWrite(PB5, HIGH);
   delay(100);  // Wait for 100 milliseconds.
   Wire.begin();  // Initialize the I2C communication.
   while (!sht3x.begin()) {  // Check if SHT3x sensor is detected.
@@ -371,8 +381,9 @@ ArtronShop_BH1750 bh1750(0x23, &Wire); // Non Jump ADDR: 0x23, Jump ADDR: 0x5C
 void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud rate.
   Serial.print("\r\n************ArduLora**************");  // Print a message indicating the start of the program.
-  init_io();
-  enable_Vss3();
+  //Enable power for external sensor
+  pinMode(PB5, OUTPUT);
+  digitalWrite(PB5, HIGH);
   Wire.begin();  // Initialize the I2C communication.
   while (!bh1750.begin()) {  // Check if BH1750 sensor is detected.
     Serial.println("BH1750 not found !");  // Print a message if BH1750 sensor is not detected.
@@ -445,7 +456,15 @@ void send_cb(void) {
 }
 
 void setup() {
-  init_io();
+  //Enable power for external sensor
+  pinMode(PB5, OUTPUT);
+  digitalWrite(PB5, HIGH);
+
+  //Led PA8 as output
+  pinMode(PA8, OUTPUT);
+
+  //Led PB2 as output
+  pinMode(PB2, OUTPUT);
   Serial.begin(115200);
   Serial.println("ArduLora LoRaWan P2P Example");
   Serial.println("------------------------------------------------------");
@@ -529,7 +548,16 @@ void send_cb(void) {
 }
 
 void setup() {
-  init_io();
+  //Enable power for external sensor
+  pinMode(PB5, OUTPUT);
+  digitalWrite(PB5, HIGH);
+
+  //Led PA8 as output
+  pinMode(PA8, OUTPUT);
+  //Led PA9 as output
+  pinMode(PA9, OUTPUT);
+  //Led PB2 as output
+  pinMode(PB2, OUTPUT);
   Serial.begin(115200);
   Serial.println("ArduLora LoRaWan P2P Example");
   Serial.println("------------------------------------------------------");
@@ -736,8 +764,9 @@ TinyGPSPlus gps; //GPS ATGM336H
 void setup() {
   Serial.begin(115200);
   Serial1.begin(9600);
-  init_io();
-  enable_Vss3();
+  //Enable power for external sensor
+  pinMode(PB5, OUTPUT);
+  digitalWrite(PB5, HIGH);
   while (Serial1.available()) {
     Serial1.read();
   }
