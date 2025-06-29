@@ -41,17 +41,17 @@ height="30" width="40" /></a>
 
 | **Alternative Pin Usage** | **Pin Name (V3.5)** | **Note** |  
 | :---: | :---: | :---: |    
-|LED_SEND | PA8 | YELLOW color |  
-|LED_SYNC | PA9 | RED color |  
-|LED_RECV | PB2 | BLUE color |   
+|LED_SEND | PA8 | Led YELLOW color |  
+|LED_SYNC | PA9 | Led RED color |  
+|LED_RECV | PB2 | Led BLUE color |   
 |I2C_SDA | PA11 | I2C pin |  
 |I2C_SCL | PA12 | I2C pin |  
-|AI1_PIN  | PB4 | 0-10V |  
-|AI2_PIN  | PA10 | 0-10V |  
+|AI1_PIN  | PB4 | Range 0-10V |  
+|AI2_PIN  | PA10 | Range 0-10V |  
 |3.3V_ext  | PB5 | Enable power 3.3V for sensor | 
-|UART1_TX | PB6 | RS485 ModbusRTU |  
-|UART1_RX | PB7 | RS485 ModbusRTU |  
-|ABAT | PB3 | ADC Battery |  
+|UART1_TX | PB6 | Pin RS485 ModbusRTU |  
+|UART1_RX | PB7 | Pin RS485 ModbusRTU |  
+|ABAT | PB3 | ADC Battery (ADC1) |  
 
   
 ## Examples
