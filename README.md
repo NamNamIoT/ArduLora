@@ -24,7 +24,7 @@ height="30" width="40" /></a>
 	- [How to get information System](#System)
 
 
-[![GitHub Repo stars](https://img.shields.io/badge/share%20on-facebook-1976D2?logo=facebook)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/NamNamIoT/ArduLora_CANOPUS)
+[![GitHub Repo stars](https://img.shields.io/badge/share%20on-facebook-1976D2?logo=facebook)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/NamNamIoT/ArduLora)
 
   
 ## Information board   
@@ -32,10 +32,11 @@ height="30" width="40" /></a>
 🏷️**Rev1.0: [July-2025].**  
 
 
-<img src="https://github.com/NamNamIoT/ArduLora_CANOPUS/assets/49629370/7da1e890-1e2c-4b1b-82d6-35317b26b6f7" height="370">  
+<img src="https://github.com/NamNamIoT/ArduLora/assets/49629370/7da1e890-1e2c-4b1b-82d6-35317b26b6f7" height="370">  
+  
 ##### Follow this guide:  
--[*Install IDE arduino, add ArduLora to manager board and import Canopus library*](https://github.com/NamNamIoT/ArduLora_CANOPUS/blob/main/Readme_extension.md)  
--[*Compile an Example with ArduLora_Canopus board*](https://github.com/NamNamIoT/ArduLora_CANOPUS/blob/main/Readme_extension.md)  
+-[*Install IDE arduino, add ArduLora to manager board and import Canopus library*](https://github.com/NamNamIoT/ArduLora/blob/main/Readme_extension.md)  
+-[*Compile an Example with ArduLora board*](https://github.com/NamNamIoT/ArduLora/blob/main/Readme_extension.md)  
 
 #### ArduLora I/O Pins 
 
@@ -64,10 +65,10 @@ height="30" width="40" /></a>
 > **tip 📝 NOTE:**  
 > The GPIO Pin Name is the one to be used on the digitalRead and digitalWrite and NOT the pin numbers.
   
-**Example code blink led on ArduLora_Canopus board**
+**Example code blink led on ArduLora board**
 
 ```c
-#include <ArduLora_Canopus.h>
+#include <ArduLora.h>
 
 void setup()
 {
@@ -96,12 +97,12 @@ You can use any of the pins below as Analog Input.
 
 Use Arduino [analogRead](https://www.arduino.cc/reference/en/language/functions/analog-io/analogread/) to read the value from the specified Analog Input pin.
 
-<img src="https://github.com/NamNamIoT/ArduLora_CANOPUS/assets/49629370/c48d3ecc-73a6-4a35-ae64-f4ed497c8023" height="400" width="270"><img src="https://user-images.githubusercontent.com/49629370/224522583-21ff739b-7f3b-4a7d-9697-72e8b69e8c4a.png" height="400" width="500">
+<img src="https://github.com/NamNamIoT/ArduLora/assets/49629370/c48d3ecc-73a6-4a35-ae64-f4ed497c8023" height="400" width="270"><img src="https://user-images.githubusercontent.com/49629370/224522583-21ff739b-7f3b-4a7d-9697-72e8b69e8c4a.png" height="400" width="500">
   
-**Example code read analog on ArduLora_Canopus board**
+**Example code read analog on ArduLora board**
 
 ```c
-#include <ArduLora_Canopus.h>  // Include the ArduLora_Canopus library header file.
+#include <ArduLora.h>  // Include the ArduLora library header file.
 
 void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud rate.
@@ -129,7 +130,7 @@ void loop() {
 ##### Modbus master  
 *This example, our board is modbus master.*
 
-Modbus RTU use Serial1 on ArduLora_Canopus board
+Modbus RTU use Serial1 on ArduLora board
 
 | **Serial Port**   | **Serial Instance Assignment** | **Default Mode** |
 | ----------------- | ------------------------------ | ---------------- |
@@ -140,12 +141,12 @@ Modbus RTU use Serial1 on ArduLora_Canopus board
 
 **Example Code modbus master read slave**
 
-##### 📝Note: Make sure you have an ModbusRTU device connected to pin A and B on ArduLora_Canopus board.
+##### 📝Note: Make sure you have an ModbusRTU device connected to pin A and B on ArduLora board.
 
 ```c
 #include "Canopus_Modbus.h"
 ModbusMaster node;
-#include <ArduLora_Canopus.h>
+#include <ArduLora.h>
 
 uint8_t result;
 void setup()
@@ -153,7 +154,7 @@ void setup()
   init_io();
   enable_Vrs485();
   Serial.begin(115200);
-  Serial.print("\r\n*****************ArduLora_CANOPUS*******************");
+  Serial.print("\r\n*****************ArduLora*******************");
   Serial_Canopus.begin(9600, SERIAL_8N1);
 }
 void loop()
@@ -161,7 +162,7 @@ void loop()
   //***************READ node 1**************************
   node.begin(1, Serial_Canopus); //slave ID node
   Serial.printf("");
-  Serial.printf("\r\n\n\nExample read modbus RTU for ArduLora_Canopus board");
+  Serial.printf("\r\n\n\nExample read modbus RTU for ArduLora board");
 
   result = node.readHoldingRegisters(0, 10);//Read 40000 to 40009
   delay(10);
@@ -182,7 +183,7 @@ void loop()
 The Arduino Serial Monitor shows the value of register:
 
 ```c
-Example read modbus RTU for ArduLora_Canopus board
+Example read modbus RTU for ArduLora board
 Value 40000: 1
 Value 40001: 2
 Value 40002: 3
@@ -201,7 +202,7 @@ Value 40009: 10
 **Example Code modbus slave update value register**
 
 ```c
-#include <ArduLora_Canopus.h>
+#include <ArduLora.h>
 
 #include "modbus.h"
 #include "modbusDevice.h"
@@ -216,7 +217,7 @@ void setup()
   enable_Vrs485();
   
   Serial.begin(115200);
-  Serial.print("\r\n*****************ArduLora_CANOPUS*******************");
+  Serial.print("\r\n*****************ArduLora*******************");
   
   regBank.setId(1);  //Set id slave
   regBank.add(40001);  //Add register FC03, holding register, address 1
@@ -250,7 +251,7 @@ There is one I2C peripheral available on ArduLora.
 
 - Use Arduino [Wire](https://www.arduino.cc/reference/en/language/functions/communication/wire/) library to communicate with I2C devices.
 
-<img src="https://github.com/NamNamIoT/ArduLora_CANOPUS/assets/49629370/a8da41d4-12a5-4daa-89a1-7c62a2648887" height="350" width="250"><img src="https://user-images.githubusercontent.com/49629370/224522611-246efbcf-a1fb-4503-9ea5-41dc0b514656.png" height="350" width="500">
+<img src="https://github.com/NamNamIoT/ArduLora/assets/49629370/a8da41d4-12a5-4daa-89a1-7c62a2648887" height="350" width="250"><img src="https://user-images.githubusercontent.com/49629370/224522611-246efbcf-a1fb-4503-9ea5-41dc0b514656.png" height="350" width="500">
 
 **Example Code I2C**  
 ***Scan I2C***  
@@ -258,7 +259,7 @@ Make sure you have an I2C device connected to specified I2C pins to run the I2C 
 
 ```c
 #include <Wire.h>
-#include <ArduLora_Canopus.h>
+#include <ArduLora.h>
 
 void setup()
 {
@@ -328,13 +329,13 @@ The Arduino Serial Monitor shows the I2C device found.
 #include <Arduino.h>  // Include the Arduino core library.
 #include <Wire.h>  // Include the Wire library for I2C communication.
 #include <ArtronShop_SHT3x.h>  // Include the SHT3x library.
-#include <ArduLora_Canopus.h>  // Include the ArduLora_Canopus library header file.
+#include <ArduLora.h>  // Include the ArduLora library header file.
 
 ArtronShop_SHT3x sht3x(0x44, &Wire);  // ADDR: 0 => 0x44, ADDR: 1 => 0x45
 
 void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud rate.
-  Serial.print("\r\n************ArduLora_CANOPUS**************");  // Print a message indicating the start of the program.
+  Serial.print("\r\n************ArduLora**************");  // Print a message indicating the start of the program.
   init_io();
   enable_Vss3();
   delay(100);  // Wait for 100 milliseconds.
@@ -377,13 +378,13 @@ The Arduino Serial Monitor shows value.
 #include <Arduino.h>  // Include the Arduino core library.
 #include <Wire.h>  // Include the Wire library for I2C communication.
 #include <ArtronShop_BH1750.h>  // Include the BH1750 library.
-#include <ArduLora_Canopus.h>  // Include the ArduLora_Canopus library header file.
+#include <ArduLora.h>  // Include the ArduLora library header file.
 
 ArtronShop_BH1750 bh1750(0x23, &Wire); // Non Jump ADDR: 0x23, Jump ADDR: 0x5C
 
 void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud rate.
-  Serial.print("\r\n************ArduLora_CANOPUS**************");  // Print a message indicating the start of the program.
+  Serial.print("\r\n************ArduLora**************");  // Print a message indicating the start of the program.
   init_io();
   enable_Vss3();
   Wire.begin();  // Initialize the I2C communication.
@@ -415,7 +416,7 @@ The Arduino Serial Monitor shows value.
 ### Lora P2P
 ##### Sender
 ```c
-#include <ArduLora_Canopus.h>
+#include <ArduLora.h>
 
 long startTime;
 bool rx_done = false;
@@ -462,7 +463,7 @@ void send_cb(void) {
 void setup() {
   init_io();
   Serial.begin(115200);
-  Serial.println("ArduLora_Canopus LoRaWan P2P Example");
+  Serial.println("ArduLora LoRaWan P2P Example");
   Serial.println("------------------------------------------------------");
   delay(2000);
   startTime = millis();
@@ -519,7 +520,7 @@ void loop() {
 
 ##### Receive
 ```c
-#include <ArduLora_Canopus.h>
+#include <ArduLora.h>
 
 long startTime;
 bool rx_done = false;
@@ -548,7 +549,7 @@ void send_cb(void) {
 void setup() {
   init_io();
   Serial.begin(115200);
-  Serial.println("ArduLora_Canopus LoRaWan P2P Example");
+  Serial.println("ArduLora LoRaWan P2P Example");
   Serial.println("------------------------------------------------------");
   delay(2000);
   startTime = millis();
@@ -750,7 +751,7 @@ void loop()
 
 ##### GPS
 ```c
-#include <ArduLora_Canopus.h>
+#include <ArduLora.h>
 #include <TinyGPSPlus.h>
 TinyGPSPlus gps; //GPS ATGM336H
 void setup() {
@@ -778,4 +779,4 @@ void loop() {
 ### Continue update  
 [Click go top](#Quick-access-panel)  
   
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/NamNamIoT/ArduLora_CANOPUS/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/NamNamIoT/ArduLora/blob/main/LICENSE)
