@@ -1,6 +1,5 @@
 
 # ArduLora Board Quick Start Guide  
-
 <p align="left">
 <a href="https://fb.com/kuem0912" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="kuem0912" 
 height="30" width="40" /></a>
@@ -11,7 +10,6 @@ height="30" width="40" /></a>
 * [Information board](#Information-board)
 	- [Version hardware log](#Version-hardware-log)
 	- [Hardware Setup](#Hardware-Setup)
-	- [Software setup](#Software-setup)
 	- [ArduLora I/O pinout](#ArduLora-I/O-Pins)
 * [Examples](#Examples)
 	- [How to Use Digital IO](#How-to-Use-Digital-IO)
@@ -25,6 +23,8 @@ height="30" width="40" /></a>
 
 [![GitHub Repo stars](https://img.shields.io/badge/share%20on-facebook-1976D2?logo=facebook)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/NamNamIoT/ArduLora)
 
+##### Install ArduLora board in IDE Arduino:  
+-[*Install IDE arduino, add ArduLora to manager board and import Canopus library*](https://github.com/NamNamIoT/ArduLora/blob/main/Readme_extension.md)  
   
 ## Information board   
 #### Version hardware log   
@@ -32,9 +32,6 @@ height="30" width="40" /></a>
 
 
 <img src="https://github.com/NamNamIoT/ArduLora/assets/49629370/7da1e890-1e2c-4b1b-82d6-35317b26b6f7" height="370">  
-  
-##### Follow this guide:  
--[*Install IDE arduino, add ArduLora to manager board and import Canopus library*](https://github.com/NamNamIoT/ArduLora/blob/main/Readme_extension.md)  
 
 #### ArduLora I/O Pins 
 | **Pin Name** | **Note** |  
