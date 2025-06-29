@@ -35,10 +35,8 @@ height="30" width="40" /></a>
   
 ##### Follow this guide:  
 -[*Install IDE arduino, add ArduLora to manager board and import Canopus library*](https://github.com/NamNamIoT/ArduLora/blob/main/Readme_extension.md)  
--[*Compile an Example with ArduLora board*](https://github.com/NamNamIoT/ArduLora/blob/main/Readme_extension.md)  
 
 #### ArduLora I/O Pins 
-
 | **Pin Name** | **Note** |  
 | :---: | :---: |    
 | PA8 | Led YELLOW color |  
