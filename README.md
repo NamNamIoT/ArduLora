@@ -31,7 +31,7 @@ height="30" width="40" /></a>
 🏷️**Rev1.0: [July-2025].**  
 
 
-<img src="https://github.com/NamNamIoT/ArduLora/assets/49629370/7da1e890-1e2c-4b1b-82d6-35317b26b6f7" height="370">  
+<img src="https://github.com/user-attachments/assets/59d00ff9-9155-41c1-a961-e18d9ace62cd" style="transform: rotate(180deg);" height="600" width="780">  
 
 #### ArduLora I/O Pins 
 | **Pin Name** | **Note** |  
