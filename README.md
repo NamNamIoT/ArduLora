@@ -106,9 +106,9 @@ void loop() {
 
 Modbus RTU use Serial1 on ArduLora board
 
-| **Serial Port**   | **Serial Instance Assignment** | **Default Mode** |
-| ----------------- | ------------------------------ | ---------------- |
-| UART1 (pins 4, 5) | Serial1                        | Custom Mode      |
+| **Serial Port**   | **Serial Instance Assignment** |
+| ----------------- | ------------------------------ |
+| UART1 (pins 4, 5) | Serial1                        |
 
 ![RAKmodbus](https://user-images.githubusercontent.com/49629370/224534542-f279d2f3-cd5c-4dbe-8af6-d8c383c315a0.PNG)
 
@@ -174,7 +174,7 @@ Value 40009: 10
 [Click go top](#Information-board)
   
 ##### Modbus slave  
-*This example, our board is modbus **slave**. Board read AI(4-20mA) and set value register 040001 (FC03, address 1)*  
+*This example, our board is modbus **slave**. Board read analog at PB4 (AI1) and set value register 040001 (FC03, address 1)*  
 **Example Code modbus slave update value register**
 
 ```c
