@@ -725,7 +725,7 @@ void loop()
 		api.system.apiVersion.get().c_str());
     Serial.printf("Model ID: %s\r\n", api.system.modelId.get().c_str());
     Serial.printf("Hardware ID: %s\r\n", api.system.chipId.get().c_str());
-    Serial.printf("Battery Level: %f\r\n", api.system.bat.get());
+    Serial.printf("Battery Level: %0.1f\r\n", api.system.bat.get());
     delay(1000);
 }
 ```
