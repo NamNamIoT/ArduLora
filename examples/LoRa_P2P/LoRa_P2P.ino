@@ -1,4 +1,3 @@
-#include <Rak3172_Canopus.h>
 long startTime;
 bool rx_done = false;
 double myFreq = 868000000;
@@ -65,7 +64,6 @@ void setup()
     Serial.begin(115200);
     Serial.println("RAK3172_Canopus lora P2P Example");
     Serial.println("------------------------------------------------------");
-    init_io();
     startTime = millis();
 
     if (api.lora.nwm.get() != 0)
