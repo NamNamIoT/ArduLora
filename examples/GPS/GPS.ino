@@ -1,12 +1,12 @@
-#include <Rak3172_Canopus.h>
 #include <TinyGPSPlus.h>
+
 TinyGPSPlus gps; //GPS ATGM336H
 void setup() {
-  
   Serial.begin(115200);
   Serial1.begin(9600);
-  init_io();
-  enable_Vss3();
+  //Enable power for external sensor
+  pinMode(PB5, OUTPUT);
+  digitalWrite(PB5, HIGH);
   while (Serial1.available()) {
     Serial1.read();
   }
