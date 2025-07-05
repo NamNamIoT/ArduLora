@@ -1,4 +1,3 @@
-#include <Rak3172_Canopus.h>
 #include <Arduino.h>
 #include "function.h"
 
@@ -22,13 +21,13 @@ void recv_cb(rui_lora_p2p_recv_t data) {
     Serial.println("Empty buffer.");
     return;
   }
-  digitalWrite(LED_RECV, HIGH);
+  digitalWrite(PB2, HIGH);
   char buff[92];
   sprintf(buff, "[Lora]Incoming message, length: %d, RSSI: %d, SNR: %d",
           data.BufferSize, data.Rssi, data.Snr);
   Serial.println(buff);
   Modbus_read(data.Buffer, data.BufferSize);
-  digitalWrite(LED_RECV, LOW);
+  digitalWrite(PB2, LOW);
 }
 
 void send_cb(void) {
