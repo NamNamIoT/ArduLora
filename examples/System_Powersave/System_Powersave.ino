@@ -1,10 +1,7 @@
-#include <Rak3172_Canopus.h>
 void setup() {
   Serial.begin(115200);
   Serial.println("RAKwireless System Powersave Example");
   Serial.println("------------------------------------------------------");
-  init_io();
-  save_power();
 }
 
 void loop() {
