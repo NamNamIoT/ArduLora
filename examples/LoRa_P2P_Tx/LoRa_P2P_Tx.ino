@@ -1,5 +1,3 @@
-#include <Rak3172_Canopus.h>
-
 long startTime;
 bool rx_done = false;
 double myFreq = 868000000;
@@ -34,13 +32,13 @@ void recv_cb(rui_lora_p2p_recv_t data)
     Serial.println("Empty buffer.");
     return;
   }
-  digitalWrite(LED_RECV, HIGH);
+  digitalWrite(PB2, HIGH);
   char buff[92];
   sprintf(buff, "Incoming message, length: %d, RSSI: %d, SNR: %d",
           data.BufferSize, data.Rssi, data.Snr);
   Serial.println(buff);
   hexDump(data.Buffer, data.BufferSize);
-  digitalWrite(LED_RECV, LOW);
+  digitalWrite(PB2, LOW);
 }
 
 void send_cb(void)
@@ -54,7 +52,17 @@ void setup()
   Serial.begin(115200);
   Serial.println("RAK3172_Canopus lora P2P Example");
   Serial.println("------------------------------------------------------");
-  init_io();
+  
+  //Enable power for external sensor
+  pinMode(PB5, OUTPUT);
+  digitalWrite(PB5, HIGH);
+
+  //Led PA8 as output
+  pinMode(PA8, OUTPUT);
+
+  //Led PB2 as output
+  pinMode(PB2, OUTPUT);
+  
   startTime = millis();
 
   if (api.lora.nwm.get() != 0)
@@ -106,5 +114,5 @@ void loop()
   }
   Serial.printf("P2P send Success\r\n");
   delay(1000);
-  digitalWrite(LED_SYNC, !digitalRead(LED_SYNC));
+  digitalWrite(PA8, !digitalRead(PA8));
 }
