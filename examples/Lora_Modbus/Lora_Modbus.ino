@@ -1,4 +1,3 @@
-#include <Rak3172_Canopus.h>
 #include "function.h"
 
 void setup()
@@ -6,7 +5,8 @@ void setup()
   Serial.begin(115200);
   Serial.println("RAK3172_Canopus LoRa P2P Example");
   Serial.println("------------------------------------------------------");
-  init_io();
+  pinMode(PB5, OUTPUT);
+  digitalWrite(PB5, HIGH);
   init_lora(868000000);
   Serial_modbus.begin(9600, RAK_CUSTOM_MODE);
   Serial_modbus.println("RAK3172_Canopus LoRa_Modbus tunnel Example");
