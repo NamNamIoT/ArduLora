@@ -21,6 +21,3 @@
 | PB6 | UART1_TX (RS485) |  
 | PB7 | UART1_TX (RS485) |  
 | PB3 | ADC Battery (ADC1) |  
-
-    
-If you want the design file (on Altium), please transfer $200 to the account namcanopus@gmail.com with your email as the message. For example: ardulora your_email@gmail.com 
