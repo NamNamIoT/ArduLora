@@ -4,7 +4,8 @@
 <a href="https://fb.com/kuem0912" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="kuem0912" 
 height="30" width="40" /></a>
 <a href="https://wa.me/84969809444" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/whatsapp.svg" alt="84969809444" height="30" width="40" /></a>
-</p>  
+
+
 
 ## Content
 * [Information board](#Information-board)
@@ -32,7 +33,11 @@ height="30" width="40" /></a>
 
 
 <img src="https://github.com/user-attachments/assets/e4db9297-9971-4c09-8c15-fc0017d1340d" 
-     style="max-width: 100%; height: auto; object-fit: contain;">
+     style="max-width: 100%; height: auto; object-fit: contain;">  
+	   
+🏷️**Rev1.1: [Sept-2025].**  
+  </p>  
+<img width="550" height="850" alt="image" src="https://github.com/user-attachments/assets/76875bfb-e99e-4296-a595-90021a524fcc" />
 
 ## Examples
 ### How to Use Digital IO  
