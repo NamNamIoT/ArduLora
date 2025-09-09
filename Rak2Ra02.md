@@ -1,5 +1,5 @@
 
-# ArduLora communication with Lora Ra02
+# ArduLora communication with Lora Ra-02 (433MHz) or Ra-01SH (803-930MHz)
   
 <img src="https://github.com/NamNamIoT/ArduLora/assets/49629370/7da1e890-1e2c-4b1b-82d6-35317b26b6f7" height="450"><img src="https://user-images.githubusercontent.com/49629370/64397342-2c133a80-d08b-11e9-9520-96f3bfae00c6.jpg" height="450">
 
