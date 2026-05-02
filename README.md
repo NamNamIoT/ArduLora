@@ -22,6 +22,7 @@ height="30" width="40" /></a>
 	- [How to use Lora P2P](#Lora-P2P)
 	- [How to use LoraWan](#LoraWan)
 	- [How to get information System](#System)
+* [🏗️ Architecture & Logic](#Architecture-&-Logic)
 
 
 [![GitHub Repo stars](https://img.shields.io/badge/share%20on-facebook-1976D2?logo=facebook)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/NamNamIoT/ArduLora)
@@ -51,20 +52,39 @@ height="30" width="40" /></a>
   
 **Example code blink led on ArduLora board**
 
+```plantuml
+@startuml
+start
+:Set Pin PA9 to Output;
+repeat
+  :Set PA9 HIGH (LED ON);
+  :Wait 1 second;
+  :Set PA9 LOW (LED OFF);
+  :Wait 1 second;
+backward:Repeat forever;
+repeat while (Board is Powered)
+@enduml
+```
+
 ```c
 void setup()
 {
-  pinMode(PA9, OUTPUT); //Change the PA9 to any digital pin you want. Also, you can set this to INPUT or OUTPUT
+  pinMode(PA9, OUTPUT); // Set pin PA9 as an OUTPUT
 }
 
 void loop()
 {
-  digitalWrite(PA9, HIGH); //Change the PA9 to any digital pin you want. Also, you can set this to HIGH or LOW state.
-  delay(1000); // delay for 1 second
-  digitalWrite(PA9, LOW); //Change the PA9 to any digital pin you want. Also, you can set this to HIGH or LOW state.
-  delay(1000); // delay for 1 second
+  digitalWrite(PA9, HIGH); // Turn the pin ON (3.3V)
+  delay(1000);             // Wait for 1 second
+  digitalWrite(PA9, LOW);  // Turn the pin OFF (0V)
+  delay(1000);             // Wait for 1 second
 }
 ```
+
+🔍 **Code Explanation:**
+*   **`pinMode(PA9, OUTPUT)`**: Tells the board that pin `PA9` will be used to send signals OUT (to an LED).
+*   **`digitalWrite(PA9, HIGH)`**: Sends 3.3V to the pin, turning the LED on.
+*   **`delay(1000)`**: Pauses the program for 1000 milliseconds (1 second).
 [Click go top](#Information-board)
 
 ### How to Use Analog Input  
@@ -80,6 +100,20 @@ You can use any of the pins below as Analog Input.
 Use Arduino [analogRead](https://www.arduino.cc/reference/en/language/functions/analog-io/analogread/) to read the value from the specified Analog Input pin.
   
 **Example code read analog on ArduLora board**
+
+```plantuml
+@startuml
+start
+:Enable PB5 (Sensor Power);
+:Set Resolution to 12-bit;
+repeat
+  :Read PB4 (AI1);
+  :Read PA10 (AI2);
+  :Print values to Serial;
+  :Wait 1 second;
+repeat while (Board is Powered)
+@enduml
+```
 
 ```c
 void setup() {
@@ -103,11 +137,32 @@ void loop() {
 }
 
 ```
+
+🔍 **Code Explanation:**
+*   **`pinMode(PB5, OUTPUT)` & `digitalWrite(PB5, HIGH)`**: ArduLora has a power control pin (`PB5`) for external sensors. You must turn it ON to give power to your sensors.
+*   **`analogReadResolution(12)`**: Sets the precision to 12-bit (0-4095), giving more accurate readings than standard Arduino (10-bit).
+*   **`analogRead(PB4) * 2.58`**: Reads the raw voltage and converts it to millivolts using the board's scaling factor.
 [Click go top](#Information-board)
 
 ### How to Use Modbus RTU  
 ##### Modbus master  
 *This example, our board is modbus master.*
+
+```plantuml
+@startuml
+participant "ArduLora (Master)" as M
+participant "Slave Device" as S
+M -> M: Enable PB5 Power
+M -> M: Serial_Canopus.begin(9600)
+loop forever
+  M -> S: Request Holding Registers (0-9)
+  S -> M: Return Data
+  M -> M: Print to Serial Monitor
+  M -> M: Toggle Status LED (PA8)
+  M -> M: Delay 500ms
+end
+@enduml
+```
 
 Modbus RTU use Serial1 on ArduLora board
 
@@ -161,6 +216,12 @@ void loop()
 
 ```
 
+🔍 **Code Explanation:**
+*   **`ModbusMaster node`**: Creates a "Master" object to control other devices.
+*   **`Serial_Canopus`**: A special serial port pre-configured for the Modbus pins on ArduLora.
+*   **`node.readHoldingRegisters(0, 10)`**: Requests data from address 0 to 9 from the slave device.
+*   **`node.getResponseBuffer(i)`**: Retrieves the actual value received from the sensor.
+
 The Arduino Serial Monitor shows the value of register:
 
 ```c
@@ -180,6 +241,23 @@ Value 40009: 10
   
 ##### Modbus slave  
 *This example, our board is modbus **slave**. Board read analog at PB4 (AI1) and set value register 040001 (FC03, address 1)*  
+
+```plantuml
+@startuml
+participant "Modbus Master" as M
+participant "ArduLora (Slave)" as S
+S -> S: Define Register 40001
+S -> S: Set ID = 1
+loop forever
+  S -> S: Read Analog PB4
+  S -> S: Update Register 40001
+  S -> S: slave.run() (Listen for requests)
+  M -> S: Read Request (FC03)
+  S -> M: Send Analog Value
+end
+@enduml
+```
+
 **Example Code modbus slave update value register**
 
 ```c
@@ -219,6 +297,11 @@ void loop()
   delay(200);
 }
 ```
+
+🔍 **Code Explanation:**
+*   **`regBank.setId(1)`**: Sets the board as Modbus device ID #1.
+*   **`regBank.add(40001)`**: Reserves a register address where other devices can read data.
+*   **`slave.run()`**: The engine that listens for requests from the Modbus Master.
 [Click go top](#Information-board)
 
 ### How to Use I2C
@@ -235,6 +318,24 @@ There is one I2C peripheral available on ArduLora.
 
 **Example Code I2C**  
 ***Scan I2C***  
+
+```plantuml
+@startuml
+participant "ArduLora" as A
+participant "I2C Bus" as B
+A -> A: Wire.begin()
+loop address 1 to 127
+  A -> B: beginTransmission(address)
+  B -> A: endTransmission() (0 = Success)
+  alt error == 0
+    A -> A: Print "Device found"
+  else error == 4
+    A -> A: Print "Unknown error"
+  end
+end
+@enduml
+```
+
 Make sure you have an I2C device connected to specified I2C pins to run the I2C scanner code below:
 
 ```c
@@ -381,6 +482,11 @@ void loop() {
 }
 ```
 
+🔍 **Code Explanation:**
+*   **`ArtronShop_SHT3x sht3x(0x44, &Wire)`**: Initializes the temperature/humidity sensor at I2C address `0x44`.
+*   **`sht3x.measure()`**: Commands the sensor to take a new reading.
+*   **`sht3x.temperature()`**: Retrieves the value in Celsius.
+
 The Arduino Serial Monitor shows value.
 
 ```c
@@ -388,10 +494,20 @@ The Arduino Serial Monitor shows value.
 19:36:54.088 -> Light: 0.83 lx
 19:36:55.089 -> Light: 0.83 lx
 19:36:56.103 -> Light: 0.83 lx
-```
-[Click go top](#Information-board)
+```### Lora P2P
+LoRa P2P (Peer-to-Peer) allows hai board truyền nhận trực tiếp với nhau mà không cần Gateway.
 
-### Lora P2P
+#### 📊 Data Flow Diagram
+```plantuml
+@startuml
+participant "Sender" as S
+participant "Receiver" as R
+S -> S: Chuẩn bị Payload
+S -> R: Gửi qua Radio (Frequency/SF/BW)
+R -> R: Kích hoạt recv_cb()
+@enduml
+```
+
 ##### Sender
 ```c
 long startTime;
@@ -410,7 +526,6 @@ void hexDump(uint8_t* buf, uint16_t len) {
           s[iy++] = c;
       }
     }
-
     String msg = String(s);
     Serial.println(msg);
   }
@@ -433,70 +548,61 @@ void recv_cb(rui_lora_p2p_recv_t data) {
 
 void send_cb(void) {
   Serial.printf("P2P set Rx mode %s\r\n",
-                api.lorawan.precv(65534) ? "Success" : "Fail");
+                api.lora.precv(65534) ? "Success" : "Fail");
 }
 
 void setup() {
-  //Enable power for external sensor
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
+  digitalWrite(PB5, HIGH); // Cấp nguồn cho module
+  pinMode(PA8, OUTPUT);    // LED trạng thái
+  pinMode(PB2, OUTPUT);    // LED nhận tin
 
-  //Led PA8 as output
-  pinMode(PA8, OUTPUT);
-
-  //Led PB2 as output
-  pinMode(PB2, OUTPUT);
   Serial.begin(115200);
-  Serial.println("ArduLora LoRaWan P2P Example");
+  Serial.println("ArduLora LoRa P2P Sender Example");
   Serial.println("------------------------------------------------------");
   delay(2000);
-  startTime = millis();
 
-  if (api.lorawan.nwm.get() != 0) {
+  // RUI3 v4.x: Chuyển sang chế độ P2P dùng api.lora.nwm.set()
+  if (api.lora.nwm.get() != 0) {
     Serial.printf("Set Node device work mode %s\r\n",
-                  api.lorawan.nwm.set(0) ? "Success" : "Fail");
+                  api.lora.nwm.set() ? "Success" : "Fail");
     api.system.reboot();
   }
 
-  Serial.println("P2P Start");
-  Serial.printf("Hardware ID: %s\r\n", api.system.chipId.get().c_str());
-  Serial.printf("Model ID: %s\r\n", api.system.modelId.get().c_str());
-  Serial.printf("RUI API Version: %s\r\n",
-                api.system.apiVersion.get().c_str());
-  Serial.printf("Firmware Version: %s\r\n",
-                api.system.firmwareVersion.get().c_str());
-  Serial.printf("AT Command Version: %s\r\n",
-                api.system.cliVersion.get().c_str());
   Serial.printf("Set P2P mode frequency %3.3f: %s\r\n", (myFreq / 1e6),
-                api.lorawan.pfreq.set(myFreq) ? "Success" : "Fail");
+                api.lora.pfreq.set(myFreq) ? "Success" : "Fail");
   Serial.printf("Set P2P mode spreading factor %d: %s\r\n", sf,
-                api.lorawan.psf.set(sf) ? "Success" : "Fail");
+                api.lora.psf.set(sf) ? "Success" : "Fail");
   Serial.printf("Set P2P mode bandwidth %d: %s\r\n", bw,
-                api.lorawan.pbw.set(bw) ? "Success" : "Fail");
+                api.lora.pbw.set(bw) ? "Success" : "Fail");
   Serial.printf("Set P2P mode code rate 4/%d: %s\r\n", (cr + 5),
-                api.lorawan.pcr.set(cr) ? "Success" : "Fail");
+                api.lora.pcr.set(cr) ? "Success" : "Fail");
   Serial.printf("Set P2P mode preamble length %d: %s\r\n", preamble,
-                api.lorawan.ppl.set(preamble) ? "Success" : "Fail");
+                api.lora.ppl.set(preamble) ? "Success" : "Fail");
   Serial.printf("Set P2P mode tx power %d: %s\r\n", txPower,
-                api.lorawan.ptp.set(txPower) ? "Success" : "Fail");
-  api.lorawan.registerPRecvCallback(recv_cb);
-  api.lorawan.registerPSendCallback(send_cb);
-  Serial.printf("P2P set Rx mode %s\r\n",
-                api.lorawan.precv(65534) ? "Success" : "Fail");
+                api.lora.ptp.set(txPower) ? "Success" : "Fail");
+  
+  api.lora.registerPRecvCallback(recv_cb);
+  api.lora.registerPSendCallback(send_cb);
+  
+  api.lora.precv(65534); // Chế độ nhận liên tục
 }
 
 void loop() {
-  uint8_t payload[] = "payload";
+  uint8_t payload[] = "Hello ArduLora P2P";
   bool send_result = false;
+  
   while (!send_result) {
-    send_result = api.lorawan.psend(sizeof(payload), payload);
+    api.lora.precv(0); // Dừng nhận trước khi gửi
+    send_result = api.lora.psend(sizeof(payload), payload);
     if (!send_result) {
-      api.lorawan.precv(0);
+      Serial.println("Gửi thất bại, đang thử lại...");
       delay(1000);
     }
   }
-  Serial.printf("P2P send Success\r\n");
-  delay(1000);
+  
+  Serial.println("Gửi thành công!");
+  delay(5000);
   digitalWrite(PA8, !digitalRead(PA8));
 }
 ```
@@ -525,80 +631,49 @@ void recv_cb(rui_lora_p2p_recv_t data) {
 
 void send_cb(void) {
   Serial.printf("P2P set Rx mode %s\r\n",
-                api.lorawan.precv(65534) ? "Success" : "Fail");
+                api.lora.precv(65534) ? "Success" : "Fail");
 }
 
 void setup() {
-  //Enable power for external sensor
   pinMode(PB5, OUTPUT);
   digitalWrite(PB5, HIGH);
-
-  //Led PA8 as output
   pinMode(PA8, OUTPUT);
-  //Led PA9 as output
   pinMode(PA9, OUTPUT);
-  //Led PB2 as output
   pinMode(PB2, OUTPUT);
+
   Serial.begin(115200);
-  Serial.println("ArduLora LoRaWan P2P Example");
+  Serial.println("ArduLora LoRa P2P Receiver Example");
   Serial.println("------------------------------------------------------");
   delay(2000);
-  startTime = millis();
 
-  if (api.lorawan.nwm.get() != 0) {
-    Serial.printf("Set Node device work mode %s\r\n",
-                  api.lorawan.nwm.set(0) ? "Success" : "Fail");
+  if (api.lora.nwm.get() != 0) {
+    api.lora.nwm.set();
     api.system.reboot();
   }
 
-  Serial.println("P2P Start");
-  Serial.printf("Hardware ID: %s\r\n", api.system.chipId.get().c_str());
-  Serial.printf("Model ID: %s\r\n", api.system.modelId.get().c_str());
-  Serial.printf("RUI API Version: %s\r\n",
-                api.system.apiVersion.get().c_str());
-  Serial.printf("Firmware Version: %s\r\n",
-                api.system.firmwareVersion.get().c_str());
-  Serial.printf("AT Command Version: %s\r\n",
-                api.system.cliVersion.get().c_str());
-  Serial.printf("Set P2P mode frequency %3.3f: %s\r\n", (myFreq / 1e6),
-                api.lorawan.pfreq.set(myFreq) ? "Success" : "Fail");
-  Serial.printf("Set P2P mode spreading factor %d: %s\r\n", sf,
-                api.lorawan.psf.set(sf) ? "Success" : "Fail");
-  Serial.printf("Set P2P mode bandwidth %d: %s\r\n", bw,
-                api.lorawan.pbw.set(bw) ? "Success" : "Fail");
-  Serial.printf("Set P2P mode code rate 4/%d: %s\r\n", (cr + 5),
-                api.lorawan.pcr.set(cr) ? "Success" : "Fail");
-  Serial.printf("Set P2P mode preamble length %d: %s\r\n", preamble,
-                api.lorawan.ppl.set(preamble) ? "Success" : "Fail");
-  Serial.printf("Set P2P mode tx power %d: %s\r\n", txPower,
-                api.lorawan.ptp.set(txPower) ? "Success" : "Fail");
-  api.lorawan.registerPRecvCallback(recv_cb);
-  api.lorawan.registerPSendCallback(send_cb);
-  Serial.printf("P2P set Rx mode %s\r\n",
-                api.lorawan.precv(65534) ? "Success" : "Fail");
+  api.lora.pfreq.set(myFreq);
+  api.lora.psf.set(sf);
+  api.lora.pbw.set(bw);
+  api.lora.pcr.set(cr);
+  api.lora.ppl.set(preamble);
+  api.lora.ptp.set(txPower);
+
+  api.lora.registerPRecvCallback(recv_cb);
+  api.lora.registerPSendCallback(send_cb);
+  api.lora.precv(65534);
 }
 
 void loop() {
-  uint8_t payload[] = "payload_B";
-  bool send_result = false;
   if (rx_done) {
     rx_done = false;
-    while (!send_result) {
-      digitalWrite(PA9, HIGH);
-      send_result = api.lorawan.psend(sizeof(payload), payload);
-      Serial.printf("P2P send %s\r\n", send_result ? "Success" : "Fail");
-      if (!send_result) {
-        Serial.printf("P2P finish Rx mode %s\r\n", api.lorawan.precv(0) ? "Success" : "Fail");
-        delay(1000);
-      }
-    }
-    digitalWrite(PA9, LOW);
+    uint8_t payload[] = "ACK from ArduLora";
+    api.lora.precv(0);
+    api.lora.psend(sizeof(payload), payload);
   }
   delay(500);
   digitalWrite(PA8, !digitalRead(PA8));
 }
 ```
-[Click go top](#Information-board)
 
 ### System
 ##### Powersave
@@ -622,6 +697,9 @@ void loop()
     Serial.println(" ms");
 }
 ```
+
+🔍 **Code Explanation:**
+*   **`api.system.sleep.all(10000)`**: The board enters Deep Sleep for 10 seconds. It stops almost all power consumption, saving your battery!
 [Click go top](#Information-board)
 
 ##### Time
@@ -738,6 +816,21 @@ void loop()
 ```
 
 ##### GPS
+
+```plantuml
+@startuml
+participant "GPS Module" as GPS
+participant "ArduLora (Serial1)" as A
+participant "TinyGPS++ Library" as Lib
+loop forever
+  GPS -> A: Raw NMEA Sentences
+  A -> Lib: gps.encode(character)
+  Lib -> Lib: Parse Latitude/Longitude
+  A -> A: Access gps.location.lat()
+end
+@enduml
+```
+
 ```c
 #include <TinyGPSPlus.h>
 
@@ -766,6 +859,48 @@ void loop() {
   
 ### Continue update  
 [Click go top](#Information-board)  
-  
+
+---
+
+## 🏗️ Architecture & Logic
+Detailed design and logic flow of the ArduLora ecosystem.
+
+### 🔋 Power Management (Deep Sleep)
+```plantuml
+@startuml
+[*] --> Active : Wakeup
+Active -> SensorRead : Initialize Sensors
+SensorRead -> LoRaSend : Prepare Payload
+LoRaSend -> Waiting : Wait for Tx Done
+Waiting -> DeepSleep : api.system.sleep.all()
+DeepSleep -> Active : Timer Timeout / Interrupt
+@enduml
+```
+
+### 📡 LoRaWAN OTAA Lifecycle
+```plantuml
+@startuml
+skinparam actorStyle awesome
+actor "User" as U
+participant "App"
+participant "RUI3"
+participant "Gateway"
+participant "Server"
+
+U -> App : Setup Keys
+App -> RUI : Join()
+RUI -> Gateway : Join Request
+Gateway -> Server : Forward
+Server -> Gateway : Join Accept
+Gateway -> RUI : Join Accept
+RUI -> App : Success
+@enduml
+```
+
+### 🛡️ Best Practices
+1. **Antenna**: Never power on without an antenna.
+2. **Payload**: Keep messages small (bytes) to save battery.
+3. **Delay**: Use `api.system.sleep` instead of `delay()` for long pauses.
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/NamNamIoT/ArduLora/blob/main/LICENSE)  
 <a href="https://www.tindie.com/stores/thanhnamlt5/?ref=offsite_badges&utm_source=sellers_thanhnamlt5&utm_medium=badges&utm_campaign=badge_large"><img src="https://d2ss6ovg47m0r5.cloudfront.net/badges/tindie-larges.png" alt="I sell on Tindie" width="200" height="104"></a>  

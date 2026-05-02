@@ -263,6 +263,29 @@ DeepSleep --> Uplink : Timer Wakeup (60s)
 @enduml
 ```
 
+### 🔋 9. Battery & Power Logic
+For battery-powered devices, ArduLora spends 99% of its time sleeping.
+
+```plantuml
+@startuml
+start
+:Wake up;
+:Read Sensor Data;
+:Prepare Uplink Packet;
+if (Is Joined?) then (yes)
+  :Send Data;
+  :Wait for TX_DONE;
+else (no)
+  :Perform Join;
+endif
+:Enter Deep Sleep;
+stop
+@enduml
+```
+
+> [!TIP]
+> The `api.system.sleep.all(SLEEP_TIME)` command is the "Magic" that makes your battery last for years. It turns off everything except a tiny timer that wakes the board up later.
+
 ### Data Flow
 How the "Hello ArduLora" string travels through the network.
 
