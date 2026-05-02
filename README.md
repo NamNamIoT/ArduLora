@@ -14,6 +14,7 @@ height="30" width="40" /></a>
 	- [Version hardware log](#Version-hardware-log)
 	- [Hardware Setup](#Hardware-Setup)
 	- [ArduLora I/O pinout](#ArduLora-I/O-Pins)
+	- [Library Installation](#Library-Installation)
 * [Examples](#Examples)
 	- [How to Use Digital IO](#How-to-Use-Digital-IO)
 	- [How to Use Analog Input](#How-to-Use-Analog-Input)
@@ -22,13 +23,16 @@ height="30" width="40" /></a>
 	- [How to use Lora P2P](#Lora-P2P)
 	- [How to use LoraWan](#LoraWan)
 	- [How to get information System](#System)
-* [🏗️ Architecture & Logic](#Architecture-&-Logic)
 
 
 [![GitHub Repo stars](https://img.shields.io/badge/share%20on-facebook-1976D2?logo=facebook)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/NamNamIoT/ArduLora)
 
-##### Install ArduLora board in IDE Arduino:  
--[*Install IDE arduino, add ArduLora to manager board and import Canopus library*](https://github.com/NamNamIoT/ArduLora/blob/main/Readme_extension.md)  
+##### Library Installation:  
+1. Open Arduino IDE.
+2. Go to **Sketch > Include Library > Add .ZIP Library...** (or search **ArduLora** in Library Manager once published).
+3. Include it in your code: `#include <ArduLora.h>`
+
+-[*Detailed Installation Guide*](https://github.com/NamNamIoT/ArduLora/blob/main/Readme_extension.md)  
   
 ## Information board   
 #### Version hardware log   
@@ -179,7 +183,7 @@ void setup()
   pinMode(PB5, OUTPUT);
   digitalWrite(PB5, HIGH);
 
-  #Led PA8 as output
+  // Led PA8 as output
   pinMode(PA8, OUTPUT);
   Serial.begin(115200);
   Serial.print("\r\n*****************ArduLora*******************");
@@ -486,7 +490,7 @@ The Arduino Serial Monitor shows value.
 ```
 
 ### Lora P2P
-LoRa P2P (Peer-to-Peer) allows hai board truyền nhận trực tiếp với nhau mà không cần Gateway.
+LoRa P2P (Peer-to-Peer) allows two boards to communicate directly with each other without a gateway.
 
 #### 📊 Data Flow Diagram
 
@@ -494,9 +498,9 @@ LoRa P2P (Peer-to-Peer) allows hai board truyền nhận trực tiếp với nha
 sequenceDiagram
     participant S as Sender
     participant R as Receiver
-    S->>S: Chuẩn bị Payload
-    S->>R: Gửi qua Radio (Freq/SF/BW)
-    R->>R: Kích hoạt recv_cb()
+    S->>S: Prepare Payload
+    S->>R: Send via Radio (Freq/SF/BW)
+    R->>R: Trigger recv_cb()
 ```
 
 ##### Sender
@@ -544,16 +548,16 @@ void send_cb(void) {
 
 void setup() {
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH); // Cấp nguồn cho module
-  pinMode(PA8, OUTPUT);    // LED trạng thái
-  pinMode(PB2, OUTPUT);    // LED nhận tin
+  digitalWrite(PB5, HIGH); // Power the module
+  pinMode(PA8, OUTPUT);    // Status LED
+  pinMode(PB2, OUTPUT);    // Receive LED
 
   Serial.begin(115200);
   Serial.println("ArduLora LoRa P2P Sender Example");
   Serial.println("------------------------------------------------------");
   delay(2000);
 
-  // RUI3 v4.x: Chuyển sang chế độ P2P dùng api.lora.nwm.set()
+  // RUI3 v4.x: Switch to P2P mode using api.lora.nwm.set()
   if (api.lora.nwm.get() != 0) {
     Serial.printf("Set Node device work mode %s\r\n",
                   api.lora.nwm.set() ? "Success" : "Fail");
@@ -576,7 +580,7 @@ void setup() {
   api.lora.registerPRecvCallback(recv_cb);
   api.lora.registerPSendCallback(send_cb);
   
-  api.lora.precv(65534); // Chế độ nhận liên tục
+  api.lora.precv(65534); // Continuous receive mode
 }
 
 void loop() {
@@ -584,15 +588,15 @@ void loop() {
   bool send_result = false;
   
   while (!send_result) {
-    api.lora.precv(0); // Dừng nhận trước khi gửi
+    api.lora.precv(0); // Stop receiving before sending
     send_result = api.lora.psend(sizeof(payload), payload);
     if (!send_result) {
-      Serial.println("Gửi thất bại, đang thử lại...");
+      Serial.println("Send failed, retrying...");
       delay(1000);
     }
   }
   
-  Serial.println("Gửi thành công!");
+  Serial.println("Send successful!");
   delay(5000);
   digitalWrite(PA8, !digitalRead(PA8));
 }
@@ -851,7 +855,6 @@ void loop() {
 [Click go top](#Information-board)  
 
 ---
-
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/NamNamIoT/ArduLora/blob/main/LICENSE)  
 <a href="https://www.tindie.com/stores/thanhnamlt5/?ref=offsite_badges&utm_source=sellers_thanhnamlt5&utm_medium=badges&utm_campaign=badge_large"><img src="https://d2ss6ovg47m0r5.cloudfront.net/badges/tindie-larges.png" alt="I sell on Tindie" width="200" height="104"></a>  

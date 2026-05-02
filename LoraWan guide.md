@@ -201,20 +201,19 @@ graph TD
 ```
 
 #### PlantUML Version
-```plantuml
-@startuml
-package "Edge Layer" {
-    [Sensors] --> [ArduLora (RAK3172)]
-}
-cloud "LoRaWAN Network" {
-    [Gateway]
-}
-package "Cloud Layer" {
-    [The Things Stack] --> [Dashboard]
-}
-[ArduLora (RAK3172)] ..> [Gateway] : Radio
-[Gateway] --> [The Things Stack] : Internet
-@enduml
+```mermaid
+graph TD
+    subgraph "Edge Layer"
+        Sensors --> ArduLora[ArduLora RAK3172]
+    end
+    cloud "LoRaWAN Network" {
+        Gateway
+    }
+    subgraph "Cloud Layer"
+        TTS[The Things Stack] --> Dashboard
+    end
+    ArduLora -. Radio .-> Gateway
+    Gateway --> TTS
 ```
 
 ### State Diagram
@@ -241,46 +240,41 @@ stateDiagram-v2
 ```
 
 #### PlantUML Version
-```plantuml
-@startuml
-[*] --> Boot
-Boot -> InitMode : setup()
-InitMode -> SetKeys : Mode == LoRaWAN
-InitMode --> Reboot : Mode == P2P
-Reboot -> Boot
+```mermaid
+stateDiagram-v2
+    [*] --> Boot
+    Boot --> InitMode : setup()
+    InitMode --> SetKeys : Mode == LoRaWAN
+    InitMode --> Reboot : Mode == P2P
+    Reboot --> Boot
 
-SetKeys -> Joining : api.lorawan.join()
-state Joining {
-  [*] --> Request
-  Request -> Waiting : Sent
-  Waiting -> Request : Timeout / Fail
-}
+    state JoiningNetwork {
+        [*] --> Request
+        Request --> Waiting : Sent
+        Waiting --> Request : Timeout / Fail
+    }
 
-Joining -> Joined : Success (njs=1)
-Joined --> Uplink : loop() starts
-Uplink -> DeepSleep : Send Success
-DeepSleep --> Uplink : Timer Wakeup (60s)
-@enduml
+    SetKeys --> JoiningNetwork : api.lorawan.join()
+    JoiningNetwork --> Joined : Success (njs=1)
+    Joined --> Uplink : loop() starts
+    Uplink --> DeepSleep : Send Success
+    DeepSleep --> Uplink : Timer Wakeup (60s)
 ```
 
 ### 🔋 9. Battery & Power Logic
 For battery-powered devices, ArduLora spends 99% of its time sleeping.
 
-```plantuml
-@startuml
-start
-:Wake up;
-:Read Sensor Data;
-:Prepare Uplink Packet;
-if (Is Joined?) then (yes)
-  :Send Data;
-  :Wait for TX_DONE;
-else (no)
-  :Perform Join;
-endif
-:Enter Deep Sleep;
-stop
-@enduml
+```mermaid
+graph TD
+    Start([Wake up]) --> Read[Read Sensor Data]
+    Read --> Prepare[Prepare Uplink Packet]
+    Prepare --> Joined{Is Joined?}
+    Joined -- Yes --> Send[Send Data]
+    Send --> Wait[Wait for TX_DONE]
+    Wait --> Sleep[Enter Deep Sleep]
+    Joined -- No --> Join[Perform Join]
+    Join --> Sleep
+    Sleep --> End([End/Sleep])
 ```
 
 > [!TIP]
@@ -306,25 +300,20 @@ sequenceDiagram
 ```
 
 #### PlantUML Version
-```plantuml
-@startuml
-participant "Arduino Sketch" as Sketch
-participant "RUI3 Engine" as RUI
-participant "LoRa Radio" as RF
-participant "Gateway" as GW
-participant "Network Server" as NS
+```mermaid
+sequenceDiagram
+    participant Sketch as Arduino Sketch
+    participant RUI as RUI3 Engine
+    participant RF as LoRa Radio
+    participant GW as Gateway
+    participant NS as Network Server
 
-Sketch -> RUI : api.lorawan.send(data)
-activate RUI
-RUI -> RUI : Encryption
-RUI -> RF : Prepare Packet
-deactivate RUI
-RF -> GW : Radio Packet
-GW -> NS : Forward Data
-activate NS
-NS -> NS : Decrypt & Store
-deactivate NS
-@enduml
+    Sketch->>RUI: api.lorawan.send(data)
+    Note over RUI: Encryption
+    RUI->>RF: Prepare Packet
+    RF->>GW: Radio Packet
+    GW->>NS: Forward Data
+    Note over NS: Decrypt & Store
 ```
 
 ---
