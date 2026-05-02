@@ -52,18 +52,16 @@ height="30" width="40" /></a>
   
 **Example code blink led on ArduLora board**
 
-```plantuml
-@startuml
-start
-:Set Pin PA9 to Output;
-repeat
-  :Set PA9 HIGH (LED ON);
-  :Wait 1 second;
-  :Set PA9 LOW (LED OFF);
-  :Wait 1 second;
-backward:Repeat forever;
-repeat while (Board is Powered)
-@enduml
+```mermaid
+graph TD
+    Start([Start]) --> SetPin[Set Pin PA9 to Output]
+    SetPin --> Loop
+    subgraph Loop [Blink Loop]
+        On[Set PA9 HIGH - LED ON] --> Wait1[Wait 1 second]
+        Wait1 --> Off[Set PA9 LOW - LED OFF]
+        Off --> Wait2[Wait 1 second]
+        Wait2 --> On
+    end
 ```
 
 ```c
@@ -101,18 +99,14 @@ Use Arduino [analogRead](https://www.arduino.cc/reference/en/language/functions/
   
 **Example code read analog on ArduLora board**
 
-```plantuml
-@startuml
-start
-:Enable PB5 (Sensor Power);
-:Set Resolution to 12-bit;
-repeat
-  :Read PB4 (AI1);
-  :Read PA10 (AI2);
-  :Print values to Serial;
-  :Wait 1 second;
-repeat while (Board is Powered)
-@enduml
+```mermaid
+graph TD
+    Start([Start]) --> Power[Enable PB5 - Sensor Power]
+    Power --> Res[Set Resolution to 12-bit]
+    Res --> Read[Read PB4 AI1 & PA10 AI2]
+    Read --> Print[Print values to Serial]
+    Print --> Wait[Wait 1 second]
+    Wait --> Read
 ```
 
 ```c
@@ -148,20 +142,18 @@ void loop() {
 ##### Modbus master  
 *This example, our board is modbus master.*
 
-```plantuml
-@startuml
-participant "ArduLora (Master)" as M
-participant "Slave Device" as S
-M -> M: Enable PB5 Power
-M -> M: Serial_Canopus.begin(9600)
-loop forever
-  M -> S: Request Holding Registers (0-9)
-  S -> M: Return Data
-  M -> M: Print to Serial Monitor
-  M -> M: Toggle Status LED (PA8)
-  M -> M: Delay 500ms
-end
-@enduml
+```mermaid
+sequenceDiagram
+    participant M as ArduLora (Master)
+    participant S as Slave Device
+    Note over M: Enable PB5 Power
+    Note over M: Serial_Canopus.begin(9600)
+    loop Every 500ms
+        M->>S: Request Holding Registers (0-9)
+        S-->>M: Return Data
+        M->>M: Print to Serial
+        M->>M: Toggle LED (PA8)
+    end
 ```
 
 Modbus RTU use Serial1 on ArduLora board
@@ -242,20 +234,18 @@ Value 40009: 10
 ##### Modbus slave  
 *This example, our board is modbus **slave**. Board read analog at PB4 (AI1) and set value register 040001 (FC03, address 1)*  
 
-```plantuml
-@startuml
-participant "Modbus Master" as M
-participant "ArduLora (Slave)" as S
-S -> S: Define Register 40001
-S -> S: Set ID = 1
-loop forever
-  S -> S: Read Analog PB4
-  S -> S: Update Register 40001
-  S -> S: slave.run() (Listen for requests)
-  M -> S: Read Request (FC03)
-  S -> M: Send Analog Value
-end
-@enduml
+```mermaid
+sequenceDiagram
+    participant M as Modbus Master
+    participant S as ArduLora (Slave)
+    Note over S: Define Register 40001
+    Note over S: Set ID = 1
+    loop loop()
+        S->>S: Read Analog PB4
+        S->>S: Update Register 40001
+        M->>S: Read Request (FC03)
+        S-->>M: Send Analog Value
+    end
 ```
 
 **Example Code modbus slave update value register**
@@ -319,21 +309,20 @@ There is one I2C peripheral available on ArduLora.
 **Example Code I2C**  
 ***Scan I2C***  
 
-```plantuml
-@startuml
-participant "ArduLora" as A
-participant "I2C Bus" as B
-A -> A: Wire.begin()
-loop address 1 to 127
-  A -> B: beginTransmission(address)
-  B -> A: endTransmission() (0 = Success)
-  alt error == 0
-    A -> A: Print "Device found"
-  else error == 4
-    A -> A: Print "Unknown error"
-  end
-end
-@enduml
+```mermaid
+sequenceDiagram
+    participant A as ArduLora
+    participant B as I2C Bus
+    Note over A: Wire.begin()
+    loop Address 1 to 127
+        A->>B: beginTransmission(address)
+        B-->>A: endTransmission()
+        alt error == 0
+            Note over A: Device found!
+        else error == 4
+            Note over A: Unknown error
+        end
+    end
 ```
 
 Make sure you have an I2C device connected to specified I2C pins to run the I2C scanner code below:
@@ -494,18 +483,20 @@ The Arduino Serial Monitor shows value.
 19:36:54.088 -> Light: 0.83 lx
 19:36:55.089 -> Light: 0.83 lx
 19:36:56.103 -> Light: 0.83 lx
-```### Lora P2P
+```
+
+### Lora P2P
 LoRa P2P (Peer-to-Peer) allows hai board truyền nhận trực tiếp với nhau mà không cần Gateway.
 
 #### 📊 Data Flow Diagram
-```plantuml
-@startuml
-participant "Sender" as S
-participant "Receiver" as R
-S -> S: Chuẩn bị Payload
-S -> R: Gửi qua Radio (Frequency/SF/BW)
-R -> R: Kích hoạt recv_cb()
-@enduml
+
+```mermaid
+sequenceDiagram
+    participant S as Sender
+    participant R as Receiver
+    S->>S: Chuẩn bị Payload
+    S->>R: Gửi qua Radio (Freq/SF/BW)
+    R->>R: Kích hoạt recv_cb()
 ```
 
 ##### Sender
@@ -817,18 +808,17 @@ void loop()
 
 ##### GPS
 
-```plantuml
-@startuml
-participant "GPS Module" as GPS
-participant "ArduLora (Serial1)" as A
-participant "TinyGPS++ Library" as Lib
-loop forever
-  GPS -> A: Raw NMEA Sentences
-  A -> Lib: gps.encode(character)
-  Lib -> Lib: Parse Latitude/Longitude
-  A -> A: Access gps.location.lat()
-end
-@enduml
+```mermaid
+sequenceDiagram
+    participant G as GPS Module
+    participant A as ArduLora (Serial1)
+    participant L as TinyGPS++ Library
+    loop loop()
+        G->>A: Raw NMEA Sentences
+        A->>L: gps.encode(character)
+        L->>L: Parse Lat/Lng
+        A->>A: Access gps.location
+    end
 ```
 
 ```c
@@ -862,45 +852,6 @@ void loop() {
 
 ---
 
-## 🏗️ Architecture & Logic
-Detailed design and logic flow of the ArduLora ecosystem.
-
-### 🔋 Power Management (Deep Sleep)
-```plantuml
-@startuml
-[*] --> Active : Wakeup
-Active -> SensorRead : Initialize Sensors
-SensorRead -> LoRaSend : Prepare Payload
-LoRaSend -> Waiting : Wait for Tx Done
-Waiting -> DeepSleep : api.system.sleep.all()
-DeepSleep -> Active : Timer Timeout / Interrupt
-@enduml
-```
-
-### 📡 LoRaWAN OTAA Lifecycle
-```plantuml
-@startuml
-skinparam actorStyle awesome
-actor "User" as U
-participant "App"
-participant "RUI3"
-participant "Gateway"
-participant "Server"
-
-U -> App : Setup Keys
-App -> RUI : Join()
-RUI -> Gateway : Join Request
-Gateway -> Server : Forward
-Server -> Gateway : Join Accept
-Gateway -> RUI : Join Accept
-RUI -> App : Success
-@enduml
-```
-
-### 🛡️ Best Practices
-1. **Antenna**: Never power on without an antenna.
-2. **Payload**: Keep messages small (bytes) to save battery.
-3. **Delay**: Use `api.system.sleep` instead of `delay()` for long pauses.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/NamNamIoT/ArduLora/blob/main/LICENSE)  
 <a href="https://www.tindie.com/stores/thanhnamlt5/?ref=offsite_badges&utm_source=sellers_thanhnamlt5&utm_medium=badges&utm_campaign=badge_large"><img src="https://d2ss6ovg47m0r5.cloudfront.net/badges/tindie-larges.png" alt="I sell on Tindie" width="200" height="104"></a>  
