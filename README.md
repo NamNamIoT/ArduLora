@@ -862,4 +862,4 @@ void loop() {
 ---
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/NamNamIoT/ArduLora/blob/main/LICENSE)  
-🛒 **Get your ArduLora at:** [**Tindie**](https://www.tindie.com/stores/thanhnamlt5/?ref=offsite_badges&utm_source=sellers_thanhnamlt5&utm_medium=badges&utm_campaign=badge_large) | [**Elecrow**](https://www.elecrow.com/ardulora.html)
+🛒 **Get your ArduLora at:** [**Tindie**](https://www.tindie.com/stores/thanhnamlt5/?ref=offsite_badges&utm_source=sellers_thanhnamlt5&utm_medium=badges&utm_campaign=badge_large) | [**Elecrow**](https://www.elecrow.com/ardulora.html) | [**IC Day Roi**](https://icdayroi.com/ardulora-board-phat-trien-lora-voi-arduino-ide-day-du-cong-rs485-i2c-uart)
