@@ -37,4 +37,7 @@
 #define ARDULORA_RS485_TX      PB6
 #define ARDULORA_RS485_RX      PB7
 
+// Backward Compatibility
+#define Serial_Canopus         Serial1
+
 #endif

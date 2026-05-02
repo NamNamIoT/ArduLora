@@ -1,4 +1,4 @@
-#include <Rak3172_Canopus.h>
+#include <ArduLora.h>
 long startTime;
 bool rx_done = false;
 double myFreq = 433000000;
@@ -63,7 +63,9 @@ void send_cb(void)
 
 void setup()
 {
-  init_io();
+  //Enable power for external sensor
+  pinMode(ARDULORA_SENSOR_POWER, OUTPUT);
+  digitalWrite(ARDULORA_SENSOR_POWER, HIGH);
   Serial.begin(115200);
   Serial.println("RAK3172_Canopus lora P2P Example");
   Serial.println("------------------------------------------------------");
@@ -125,3 +127,7 @@ void loop()
   }
   delay(2000);
 }
+
+
+
+

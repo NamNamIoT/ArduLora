@@ -1,3 +1,4 @@
+#include <ArduLora.h>
 uint8_t ledPin = PA8;
 uint8_t inputPin = 0xFF;
 
@@ -51,3 +52,7 @@ void loop()
     RT_SCHEDULE(blinkThread(&rtBlink));
     RT_SCHEDULE(buttonThread(&rtButton));
 }
+
+
+
+

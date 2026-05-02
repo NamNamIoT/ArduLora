@@ -1,3 +1,4 @@
+#include <ArduLora.h>
 #include "Canopus_Modbus.h"
 ModbusMaster node;
 uint8_t result;
@@ -7,7 +8,7 @@ void setup()
   pinMode(PB5, OUTPUT);
   digitalWrite(PB5, HIGH);
 
-  #Led PA8 as output
+  // Led PA8 as output
   pinMode(PA8, OUTPUT);
   Serial.begin(115200);
   Serial.print("\r\n*****************ArduLora*******************");
@@ -33,3 +34,7 @@ void loop()
   digitalWrite(PA8, !digitalRead(PA8)); //blink led
   delay(500);
 }
+
+
+
+

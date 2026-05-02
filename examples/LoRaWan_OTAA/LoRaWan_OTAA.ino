@@ -1,3 +1,4 @@
+#include <ArduLora.h>
 /***
  *  This example shows LoRaWan protocol joining the network in OTAA mode, class A, region EU868.
  *  Device will send uplink every 20 seconds.
@@ -61,7 +62,7 @@ void setup()
     if(api.lorawan.nwm.get() != 1)
     {
         Serial.printf("Set Node device work mode %s\r\n",
-            api.lorawan.nwm.set(1) ? "Success" : "Fail");
+            api.lorawan.nwm.set() ? "Success" : "Fail");
         api.system.reboot();
     }
 
@@ -174,3 +175,7 @@ void loop()
     api.system.sleep.all(OTAA_PERIOD);
     //Serial.println("Wakeup..");
 }
+
+
+
+
