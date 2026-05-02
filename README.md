@@ -22,7 +22,6 @@ height="30" width="40" /></a>
 	- [How to use Lora P2P](#Lora-P2P)
 	- [How to use LoraWan](#LoraWan)
 	- [How to get information System](#System)
-* [🏗️ Architecture & Logic](#Architecture-&-Logic)
 
 
 [![GitHub Repo stars](https://img.shields.io/badge/share%20on-facebook-1976D2?logo=facebook)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/NamNamIoT/ArduLora)
