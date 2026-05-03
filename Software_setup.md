@@ -58,21 +58,19 @@ https://raw.githubusercontent.com/RAKWireless/RAKwireless-Arduino-BSP-Index/main
 The RAK3172_Canopus board uses the RAK3172 WisDuo module.
 ![rui-stm32](https://user-images.githubusercontent.com/49629370/224521144-d1ec1a5f-5c67-46f1-8f99-5da1b4b57a23.png)
 
-9. Install RAK3172_Canopus library
+9. Install ArduLora library
 
-⚠️ WARNING
-**_Both RAK Wisblock Examples_** and **_RAK3172_Canopus Examples_** support for RAK3172_Canopus board  
-The RAK3172_Canopus library will only focus on sampleApp for common sensors and devices using the modbus RTU interface.  
-The RAK Wisblock library will focus on Lora and lora Wan applications.  
+The **ArduLora** library is now officially available in the Arduino IDE Library Manager!
 
-Download https://github.com/NamNamIoT/RAK3172_CANOPUS and Extract to Arduino\libraries
-![Extra](https://user-images.githubusercontent.com/49629370/224536933-6abbdef3-832f-401c-98c7-cdeeca470cff.PNG)
+1. Open Arduino IDE and go to **Sketch** > **Include Library** > **Manage Libraries...** (or press Ctrl+Shift+I).
+2. Search for **ArduLora** in the search bar.  
+<img width="778" height="272" alt="Image" src="https://github.com/user-attachments/assets/89599189-bafa-4e14-b41a-62ea9a7a0e7e" />  
+3. Click on the **Install** button to install the latest version.
 
+*(Alternatively, you can still download the library as a .ZIP from this repository and install it via Sketch > Include Library > Add .ZIP Library...)*
 
-Find RAK3172_Canopus library:
-
-
-![Canopus_example](https://user-images.githubusercontent.com/49629370/224537325-ce897674-e104-43c6-900c-542c1bdc90f9.PNG)
+**Finding ArduLora Examples:**
+Once installed, you can find all the examples under **File > Examples > ArduLora** in the Arduino IDE.
 
 ##### RAK3172 COM Port on Device Manager
 
