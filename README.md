@@ -4,17 +4,17 @@
 🛒 **Where to buy:**  
 [<img src="https://d2ss6ovg47m0r5.cloudfront.net/badges/tindie-larges.png" alt="Buy on Tindie" height="104">](https://www.tindie.com/stores/thanhnamlt5/?ref=offsite_badges&utm_source=sellers_thanhnamlt5&utm_medium=badges&utm_campaign=badge_large) [<img src="https://files.catbox.moe/j7rjdz.jpg" alt="Buy on Elecrow" height="104" style="border-radius: 8px;">](https://www.elecrow.com/ardulora.html) [<img src="https://files.catbox.moe/w440pk.png" alt="Buy on IC Day Roi" height="104" style="border-radius: 8px;">](https://icdayroi.com/ardulora-board-phat-trien-lora-voi-arduino-ide-day-du-cong-rs485-i2c-uart)
 
-🎫 **Tindie Discount code:** `canopus`
-# ArduLora Board Quick Start Guide  
-
-> [!IMPORTANT]
-> **RUI3 v4.2.4 Compatibility:** All examples and documentation in this repository have been fully updated to comply with the latest RUI3 v4.x API namespaces (e.g., `api.lora.*`). Please ensure your RAK3172 module firmware is up to date. For more details on the API changes, see the [RUI3 v4.2.4 Release Notes](https://docs.rakwireless.com/release-notes/rui3/2026/v4.2.4/).
+🎫 **Tindie Discount code:** `canopus`  
 
 <p align="left">
 <a href="https://fb.com/kuem0912" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="kuem0912" 
 height="30" width="40" /></a>
-<a href="https://wa.me/84969809444" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/whatsapp.svg" alt="84969809444" height="30" width="40" /></a>
+<a href="https://wa.me/84969809444" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/whatsapp.svg" alt="84969809444" height="30" width="40" /></a>  
 
+# ArduLora Board Quick Start Guide  
+
+> [!IMPORTANT]
+> **RUI3 v4.2.4 Compatibility:** All examples and documentation in this repository have been fully updated to comply with the latest RUI3 v4.x API namespaces (e.g., `api.lora.*`). Please ensure your RAK3172 module firmware is up to date. For more details on the API changes, see the [RUI3 v4.2.4 Release Notes](https://docs.rakwireless.com/release-notes/rui3/2026/v4.2.4/).
 
 
 ## Content
@@ -32,8 +32,6 @@ height="30" width="40" /></a>
 	- [How to use LoraWan](#LoraWan)
 	- [How to get information System](#System)
 
-
-[![GitHub Repo stars](https://img.shields.io/badge/share%20on-facebook-1976D2?logo=facebook)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/NamNamIoT/ArduLora)
 
 ##### Library Installation:  
 1. Open Arduino IDE.
@@ -863,6 +861,9 @@ void loop() {
 [Click go top](#Information-board)  
 
 ---
+ 
+🛒 **Get your ArduLora at:** [**Tindie**](https://www.tindie.com/stores/thanhnamlt5/?ref=offsite_badges&utm_source=sellers_thanhnamlt5&utm_medium=badges&utm_campaign=badge_large) | [**Elecrow**](https://www.elecrow.com/ardulora.html) | [**IC Day Roi**](https://icdayroi.com/ardulora-board-phat-trien-lora-voi-arduino-ide-day-du-cong-rs485-i2c-uart)  
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/NamNamIoT/ArduLora/blob/main/LICENSE)  
-🛒 **Get your ArduLora at:** [**Tindie**](https://www.tindie.com/stores/thanhnamlt5/?ref=offsite_badges&utm_source=sellers_thanhnamlt5&utm_medium=badges&utm_campaign=badge_large) | [**Elecrow**](https://www.elecrow.com/ardulora.html) | [**IC Day Roi**](https://icdayroi.com/ardulora-board-phat-trien-lora-voi-arduino-ide-day-du-cong-rs485-i2c-uart)
+[![GitHub Repo stars](https://img.shields.io/badge/share%20on-facebook-1976D2?logo=facebook)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/NamNamIoT/ArduLora)  
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/NamNamIoT/ArduLora/blob/main/LICENSE) 
