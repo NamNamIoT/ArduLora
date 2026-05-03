@@ -40,7 +40,7 @@ height="30" width="40" /></a>
 2. Go to **Sketch > Include Library > Add .ZIP Library...** (or search **ArduLora** in Library Manager once published).
 3. Include it in your code: `#include <ArduLora.h>`
 
--[*Detailed Installation Guide*](https://github.com/NamNamIoT/ArduLora/blob/main/Readme_extension.md)  
+-[*Detailed Installation Guide*](https://github.com/NamNamIoT/ArduLora/blob/main/Software_setup.md)  
   
 ## Information board   
 #### Version hardware log   
