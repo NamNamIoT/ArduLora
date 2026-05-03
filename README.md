@@ -37,7 +37,9 @@ height="30" width="40" /></a>
 1. Open Arduino IDE.
 2. Go to **Sketch > Include Library > Manage Libraries...** (or press Ctrl+Shift+I).
 3. Search for **ArduLora** in the Library Manager and click **Install**.  
-<img width="778" height="272" alt="Image" src="https://github.com/user-attachments/assets/89599189-bafa-4e14-b41a-62ea9a7a0e7e" />  
+
+   <img width="778" height="272" alt="Image" src="https://github.com/user-attachments/assets/89599189-bafa-4e14-b41a-62ea9a7a0e7e" />  
+
 4. Include it in your code: `#include <ArduLora.h>`  
 
 - [*Detailed Installation Guide*](https://github.com/NamNamIoT/ArduLora/blob/main/Software_setup.md)  

@@ -64,7 +64,9 @@ The **ArduLora** library is now officially available in the Arduino IDE Library 
 
 1. Open Arduino IDE and go to **Sketch** > **Include Library** > **Manage Libraries...** (or press Ctrl+Shift+I).
 2. Search for **ArduLora** in the search bar.  
-<img width="778" height="272" alt="Image" src="https://github.com/user-attachments/assets/89599189-bafa-4e14-b41a-62ea9a7a0e7e" />  
+
+   <img width="778" height="272" alt="Image" src="https://github.com/user-attachments/assets/89599189-bafa-4e14-b41a-62ea9a7a0e7e" />  
+
 3. Click on the **Install** button to install the latest version.
 
 *(Alternatively, you can still download the library as a .ZIP from this repository and install it via Sketch > Include Library > Add .ZIP Library...)*
