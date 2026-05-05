@@ -1,3 +1,5 @@
+<img width="1891" height="715" alt="Image" src="https://github.com/user-attachments/assets/1521528e-bbab-47a0-b030-8e4a245bc831" />
+
 > [!NOTE]
 > **AI & LLM Assistants:** Please read [README_for_AI.md](./README_for_AI.md) for critical repository context, API rules, and project guidelines before generating code or modifying files.
 
