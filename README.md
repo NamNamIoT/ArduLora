@@ -516,13 +516,16 @@ sequenceDiagram
 ```
 
 ##### Sender
+> **tip 📝 NOTE:**  
+> The ArduLora library now includes a powerful OOP wrapper (`ArduLoraClass`) that dramatically simplifies hardware setup and LoRa configuration compared to raw RUI3 commands.
+
 ```c
+#include <ArduLora.h>
+
 long startTime;
 bool rx_done = false;
-double myFreq = 868000000;
-uint16_t sf = 12, bw = 0, cr = 0, preamble = 8, txPower = 22;
 
-void hexDump(uint8_t* buf, uint16_t len) {
+void hexDump(uint8_t *buf, uint16_t len) {
   for (uint16_t i = 0; i < len; i += 16) {
     char s[len];
     uint8_t iy = 0;
@@ -544,51 +547,36 @@ void recv_cb(rui_lora_p2p_recv_t data) {
     Serial.println("Empty buffer.");
     return;
   }
-  digitalWrite(PB2, HIGH);
+  ArduLora.setLed(ARDULORA_LED_RX, true); // Turn on RX LED
   char buff[92];
   sprintf(buff, "Incoming message, length: %d, RSSI: %d, SNR: %d",
           data.BufferSize, data.Rssi, data.Snr);
   Serial.println(buff);
   hexDump(data.Buffer, data.BufferSize);
-  digitalWrite(PB2, LOW);
+  ArduLora.setLed(ARDULORA_LED_RX, false); // Turn off RX LED
 }
 
 void send_cb(void) {
-  Serial.printf("P2P set Rx mode %s\r\n",
-                api.lora.precv(65534) ? "Success" : "Fail");
+  Serial.printf("P2P set Rx mode %s\r\n", api.lora.precv(65534) ? "Success" : "Fail");
 }
 
 void setup() {
-  pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH); // Power the module
-  pinMode(PA8, OUTPUT);    // Status LED
-  pinMode(PB2, OUTPUT);    // Receive LED
-
   Serial.begin(115200);
-  Serial.println("ArduLora LoRa P2P Sender Example");
+  Serial.println("ArduLora P2P TX Example (Using OOP Library)");
   Serial.println("------------------------------------------------------");
-  delay(2000);
+  
+  // 1. Initialize board and pins
+  ArduLora.begin();
+  ArduLora.sensorPower(true); // Turn on external sensors
+  
+  startTime = millis();
 
-  // RUI3 v4.x: Switch to P2P mode using api.lora.nwm.set()
-  if (api.lora.nwm.get() != 0) {
-    Serial.printf("Set Node device work mode %s\r\n",
-                  api.lora.nwm.set() ? "Success" : "Fail");
-    api.system.reboot();
+  // 2. Configure LoRa P2P (Defaults: 868MHz, SF7, BW125, CR4/5, Preamble 8, TX Power 22)
+  if (ArduLora.configLoraP2P()) {
+    Serial.println("LoRa P2P configured successfully!");
   }
 
-  Serial.printf("Set P2P mode frequency %3.3f: %s\r\n", (myFreq / 1e6),
-                api.lora.pfreq.set(myFreq) ? "Success" : "Fail");
-  Serial.printf("Set P2P mode spreading factor %d: %s\r\n", sf,
-                api.lora.psf.set(sf) ? "Success" : "Fail");
-  Serial.printf("Set P2P mode bandwidth %d: %s\r\n", bw,
-                api.lora.pbw.set(bw) ? "Success" : "Fail");
-  Serial.printf("Set P2P mode code rate 4/%d: %s\r\n", (cr + 5),
-                api.lora.pcr.set(cr) ? "Success" : "Fail");
-  Serial.printf("Set P2P mode preamble length %d: %s\r\n", preamble,
-                api.lora.ppl.set(preamble) ? "Success" : "Fail");
-  Serial.printf("Set P2P mode tx power %d: %s\r\n", txPower,
-                api.lora.ptp.set(txPower) ? "Success" : "Fail");
-  
+  // 3. Register Callbacks
   api.lora.registerPRecvCallback(recv_cb);
   api.lora.registerPSendCallback(send_cb);
   
@@ -601,26 +589,28 @@ void loop() {
   
   while (!send_result) {
     api.lora.precv(0); // Stop receiving before sending
-    send_result = api.lora.psend(sizeof(payload), payload);
+    send_result = ArduLora.sendP2P(payload, sizeof(payload));
     if (!send_result) {
-      Serial.println("Send failed, retrying...");
       delay(1000);
     }
   }
   
   Serial.println("Send successful!");
   delay(5000);
-  digitalWrite(PA8, !digitalRead(PA8));
+  
+  static bool ledState = false;
+  ledState = !ledState;
+  ArduLora.setLed(ARDULORA_LED_TX, ledState); // Toggle TX LED
 }
 ```
 [Click go top](#Information-board)
 
 ##### Receive
 ```c
+#include <ArduLora.h>
+
 long startTime;
 bool rx_done = false;
-double myFreq = 868000000;
-uint16_t sf = 12, bw = 0, cr = 0, preamble = 8, txPower = 22;
 
 void recv_cb(rui_lora_p2p_recv_t data) {
   rx_done = true;
@@ -628,42 +618,31 @@ void recv_cb(rui_lora_p2p_recv_t data) {
     Serial.println("Empty buffer.");
     return;
   }
-  digitalWrite(PB2, HIGH);
+  ArduLora.setLed(ARDULORA_LED_RX, true);
   char buff[92];
   sprintf(buff, "Incoming message, length: %d, RSSI: %d, SNR: %d",
           data.BufferSize, data.Rssi, data.Snr);
   Serial.println(buff);
-  digitalWrite(PB2, LOW);
+  ArduLora.setLed(ARDULORA_LED_RX, false);
 }
 
 void send_cb(void) {
-  Serial.printf("P2P set Rx mode %s\r\n",
-                api.lora.precv(65534) ? "Success" : "Fail");
+  Serial.printf("P2P set Rx mode %s\r\n", api.lora.precv(65534) ? "Success" : "Fail");
 }
 
 void setup() {
-  pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
-  pinMode(PA8, OUTPUT);
-  pinMode(PA9, OUTPUT);
-  pinMode(PB2, OUTPUT);
-
   Serial.begin(115200);
-  Serial.println("ArduLora LoRa P2P Receiver Example");
+  Serial.println("ArduLora P2P RX Example");
   Serial.println("------------------------------------------------------");
-  delay(2000);
+  
+  ArduLora.begin();
+  ArduLora.sensorPower(true);
+  
+  startTime = millis();
 
-  if (api.lora.nwm.get() != 0) {
-    api.lora.nwm.set();
-    api.system.reboot();
+  if (ArduLora.configLoraP2P()) {
+    Serial.println("LoRa P2P configured successfully!");
   }
-
-  api.lora.pfreq.set(myFreq);
-  api.lora.psf.set(sf);
-  api.lora.pbw.set(bw);
-  api.lora.pcr.set(cr);
-  api.lora.ppl.set(preamble);
-  api.lora.ptp.set(txPower);
 
   api.lora.registerPRecvCallback(recv_cb);
   api.lora.registerPSendCallback(send_cb);
@@ -671,14 +650,26 @@ void setup() {
 }
 
 void loop() {
+  uint8_t payload[] = "ACK from ArduLora";
+  bool send_result = false;
+  
   if (rx_done) {
     rx_done = false;
-    uint8_t payload[] = "ACK from ArduLora";
-    api.lora.precv(0);
-    api.lora.psend(sizeof(payload), payload);
+    while (!send_result) {
+      ArduLora.setLed(ARDULORA_LED_TX, true);
+      api.lora.precv(0);
+      send_result = ArduLora.sendP2P(payload, sizeof(payload));
+      if (!send_result) {
+        delay(1000);
+      }
+    }
+    ArduLora.setLed(ARDULORA_LED_TX, false);
   }
+  
   delay(500);
-  digitalWrite(PA8, !digitalRead(PA8));
+  static bool ledState = false;
+  ledState = !ledState;
+  ArduLora.setLed(ARDULORA_LED_STATUS, ledState);
 }
 ```
 
