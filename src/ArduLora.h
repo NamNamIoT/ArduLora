@@ -40,4 +40,37 @@
 // Backward Compatibility
 #define Serial_Canopus         Serial1
 
+class ArduLoraClass {
+  public:
+    ArduLoraClass();
+
+    // 1. Hardware & Power Management
+    void begin();
+    void sensorPower(bool state);
+    void setLed(uint8_t ledPin, bool state);
+
+    // 2. Analog Inputs (returns millivolts)
+    float readAI1_mV();
+    float readAI2_mV();
+    
+    // 3. LoRa P2P Configuration Wrapper
+    // Note: Calling this might reboot the board if it's currently in LoRaWAN mode.
+    // Calling without arguments uses defaults: 868MHz, SF7, BW125, CR4/5, Preamble 8, TX Power 22.
+    bool configLoraP2P(double freq = 868000000.0, uint16_t sf = 7, uint16_t bw = 0, uint16_t cr = 0, uint16_t preamble = 8, uint16_t txPower = 22);
+    bool sendP2P(uint8_t *payload, uint16_t len);
+
+    // 4. LoRaWAN Configuration Wrapper
+    // Note: Calling this might reboot the board if it's currently in P2P mode.
+    bool configLoRaWAN(uint8_t *devEui, uint8_t *appEui, uint8_t *appKey, uint8_t lorawanClass = 0, uint8_t region = 4);
+    bool joinLoRaWAN(uint8_t join_mode = 1); // 1 = OTAA, 0 = ABP
+    bool sendLoRaWAN(uint8_t port, uint8_t *payload, uint16_t len);
+
+    // 5. System Functions
+    void deepSleep(uint32_t time_ms);
+    void reboot();
+    String getChipID();
+};
+
+extern ArduLoraClass ArduLora;
+
 #endif
