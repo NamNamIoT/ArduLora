@@ -1,8 +1,8 @@
 #include <ArduLora.h>
 #include <Arduino.h>  // Include the Arduino core library.
 #include <Wire.h>  // Include the Wire library for I2C communication.
-#include <ArtronShop_SHT3x.h>  // Include the SHT3x library.
-ArtronShop_SHT3x sht3x(0x44, &Wire);  // ADDR: 0 => 0x44, ADDR: 1 => 0x45
+#include <ArduLora_SHT3x.h>  // Include the SHT3x library.
+ArduLora_SHT3x sht3x(0x44, &Wire);  // ADDR: 0 => 0x44, ADDR: 1 => 0x45
 
 void setup() {
 Serial.begin(115200);  // Initialize serial communication at 115200 baud rate.

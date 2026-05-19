@@ -413,8 +413,8 @@ The Arduino Serial Monitor shows the I2C device found.
   ```c
 #include <Arduino.h>  // Include the Arduino core library.
 #include <Wire.h>  // Include the Wire library for I2C communication.
-#include <ArtronShop_SHT3x.h>  // Include the SHT3x library.
-ArtronShop_SHT3x sht3x(0x44, &Wire);  // ADDR: 0 => 0x44, ADDR: 1 => 0x45
+#include <ArduLora_SHT3x.h>  // Include the SHT3x library.
+ArduLora_SHT3x sht3x(0x44, &Wire);  // ADDR: 0 => 0x44, ADDR: 1 => 0x45
 
 void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud rate.
@@ -461,9 +461,9 @@ The Arduino Serial Monitor shows value.
 ```c
 #include <Arduino.h>  // Include the Arduino core library.
 #include <Wire.h>  // Include the Wire library for I2C communication.
-#include <ArtronShop_BH1750.h>  // Include the BH1750 library.
+#include <ArduLora_BH1750.h>  // Include the BH1750 library.
 
-ArtronShop_BH1750 bh1750(0x23, &Wire); // Non Jump ADDR: 0x23, Jump ADDR: 0x5C
+ArduLora_BH1750 bh1750(0x23, &Wire); // Non Jump ADDR: 0x23, Jump ADDR: 0x5C
 
 void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud rate.
@@ -488,7 +488,7 @@ void loop() {
 ```
 
 🔍 **Code Explanation:**
-*   **`ArtronShop_SHT3x sht3x(0x44, &Wire)`**: Initializes the temperature/humidity sensor at I2C address `0x44`.
+*   **`ArduLora_SHT3x sht3x(0x44, &Wire)`**: Initializes the temperature/humidity sensor at I2C address `0x44`.
 *   **`sht3x.measure()`**: Commands the sensor to take a new reading.
 *   **`sht3x.temperature()`**: Retrieves the value in Celsius.
 

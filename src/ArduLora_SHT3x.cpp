@@ -1,10 +1,10 @@
-#include "ArtronShop_SHT3x.h"
+#include "ArduLora_SHT3x.h"
 
-ArtronShop_SHT3x::ArtronShop_SHT3x(uint8_t addr, TwoWire *wire) : _addr(addr), _wire(wire) {
+ArduLora_SHT3x::ArduLora_SHT3x(uint8_t addr, TwoWire *wire) : _addr(addr), _wire(wire) {
     // -----
 }
 
-bool ArtronShop_SHT3x::begin() {
+bool ArduLora_SHT3x::begin() {
     // periodic data acquisition mode
     this->_wire->beginTransmission(this->_addr);
     this->_wire->write(0x27); // mps => 10
@@ -12,7 +12,7 @@ bool ArtronShop_SHT3x::begin() {
     return this->_wire->endTransmission() == 0;
 }
 
-bool ArtronShop_SHT3x::measure() {
+bool ArduLora_SHT3x::measure() {
     this->_wire->beginTransmission(this->_addr);
     this->_wire->write(0xE0);
     this->_wire->write(0x00);
@@ -48,10 +48,10 @@ bool ArtronShop_SHT3x::measure() {
     return true;
 }
 
-float ArtronShop_SHT3x::temperature() {
+float ArduLora_SHT3x::temperature() {
     return this->_t;
 }
 
-float ArtronShop_SHT3x::humidity() {
+float ArduLora_SHT3x::humidity() {
     return this->_h;
 }

@@ -1,10 +1,10 @@
-#include "ArtronShop_BH1750.h"
+#include "ArduLora_BH1750.h"
 
-ArtronShop_BH1750::ArtronShop_BH1750(int addr, TwoWire *wire) : _wire(wire), _addr(addr) {
+ArduLora_BH1750::ArduLora_BH1750(int addr, TwoWire *wire) : _wire(wire), _addr(addr) {
     // ----
 }
 
-bool ArtronShop_BH1750::begin() {
+bool ArduLora_BH1750::begin() {
     _wire->beginTransmission(this->_addr);
     _wire->write(0x10); // Continuously H-Resolution Mode
     if (_wire->endTransmission() == 0) {
@@ -15,7 +15,7 @@ bool ArtronShop_BH1750::begin() {
     return false;
 }
 
-float ArtronShop_BH1750::light() {
+float ArduLora_BH1750::light() {
     int n = _wire->requestFrom(this->_addr, 2);
     if (n != 2) {
         return -1.0f;

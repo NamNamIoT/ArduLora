@@ -1,9 +1,9 @@
 #include <ArduLora.h>
 #include <Arduino.h>  // Include the Arduino core library.
 #include <Wire.h>  // Include the Wire library for I2C communication.
-#include <ArtronShop_BH1750.h>  // Include the BH1750 library.
+#include <ArduLora_BH1750.h>  // Include the BH1750 library.
 
-ArtronShop_BH1750 bh1750(0x23, &Wire); // Non Jump ADDR: 0x23, Jump ADDR: 0x5C
+ArduLora_BH1750 bh1750(0x23, &Wire); // Non Jump ADDR: 0x23, Jump ADDR: 0x5C
 
 void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud rate.
