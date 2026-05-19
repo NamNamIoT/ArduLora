@@ -107,8 +107,8 @@ You can use any of the pins below as Analog Input.
 
 | **Pin Name** | **Onboard** |
 | ------------ | ----------- |
-|  PB4         | AI1         |
-|  PA10        | AI2         |
+|  PA10        | AI1         |
+|  PA15        | AI2         |
 
 
 Use Arduino [analogRead](https://www.arduino.cc/reference/en/language/functions/analog-io/analogread/) to read the value from the specified Analog Input pin.
@@ -119,7 +119,7 @@ Use Arduino [analogRead](https://www.arduino.cc/reference/en/language/functions/
 graph TD
     Start([Start]) --> Power[Enable PB5 - Sensor Power]
     Power --> Res[Set Resolution to 12-bit]
-    Res --> Read[Read PB4 AI1 & PA10 AI2]
+    Res --> Read[Read PA10 AI1 & PA15 AI2]
     Read --> Print[Print values to Serial]
     Print --> Wait[Wait 1 second]
     Wait --> Read
@@ -132,15 +132,15 @@ void setup() {
   Serial.println("------------------------------------------------------");  // Print a separator line.
   //Enable power for external sensor
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
+  digitalWrite(PB5, LOW);
   analogReadResolution(12);  // Set analog read resolution to 12 bits.
 }
 
 void loop() {
-  float AI1 = analogRead(PB4)*2.58;         // Read analog voltage from pin PB4 and store it in AI1.
+  float AI1 = analogRead(PA10)*2.58;         // Read analog voltage from pin PB4 and store it in AI1.
   Serial.printf("AI1 = %0.0fmV\r\n", AI1); // Print the analog voltage value of AI1 in millivolts.
 
-  float AI2 = analogRead(PA10)*2.58;         // Read analog voltage from pin PA10 and store it in AI2.
+  float AI2 = analogRead(PA15)*2.58;         // Read analog voltage from pin PA10 and store it in AI2.
   Serial.printf("AI2 = %0.0fmV\r\n", AI2); // Print the analog voltage value of AI2 in millivolts.
 
   delay(1000);  // Wait for 1 second before the next iteration of the loop.
@@ -149,9 +149,9 @@ void loop() {
 ```
 
 🔍 **Code Explanation:**
-*   **`pinMode(PB5, OUTPUT)` & `digitalWrite(PB5, HIGH)`**: ArduLora has a power control pin (`PB5`) for external sensors. You must turn it ON to give power to your sensors.
+*   **`pinMode(PB5, OUTPUT)` & `digitalWrite(PB5, LOW)`**: ArduLora has a power control pin (`PB5`) for external sensors. You must turn it ON to give power to your sensors.
 *   **`analogReadResolution(12)`**: Sets the precision to 12-bit (0-4095), giving more accurate readings than standard Arduino (10-bit).
-*   **`analogRead(PB4) * 2.58`**: Reads the raw voltage and converts it to millivolts using the board's scaling factor.
+*   **`analogRead(PA10) * 2.58`**: Reads the raw voltage and converts it to millivolts using the board's scaling factor.
 [Click go top](#Information-board)
 
 ### How to Use Modbus RTU  
@@ -193,7 +193,7 @@ void setup()
 {
   //Enable power for external sensor
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
+  digitalWrite(PB5, LOW);
 
   // Led PA8 as output
   pinMode(PA8, OUTPUT);
@@ -248,7 +248,7 @@ Value 40009: 10
 [Click go top](#Information-board)
   
 ##### Modbus slave  
-*This example, our board is modbus **slave**. Board read analog at PB4 (AI1) and set value register 040001 (FC03, address 1)*  
+*This example, our board is modbus **slave**. Board read analog at PA10 (AI1) and set value register 040001 (FC03, address 1)*  
 
 ```mermaid
 sequenceDiagram
@@ -257,7 +257,7 @@ sequenceDiagram
     Note over S: Define Register 40001
     Note over S: Set ID = 1
     loop loop()
-        S->>S: Read Analog PB4
+        S->>S: Read Analog PA10
         S->>S: Update Register 40001
         M->>S: Read Request (FC03)
         S-->>M: Send Analog Value
@@ -278,7 +278,7 @@ void setup()
 {
   //Enable power for external sensor
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
+  digitalWrite(PB5, LOW);
 
   //Led PA8 as output
   pinMode(PA8, OUTPUT);
@@ -349,7 +349,7 @@ void setup()
 {
   //Enable power for external sensor
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
+  digitalWrite(PB5, LOW);
   Wire.begin();
   Serial.begin(115200);
   while (!Serial);
@@ -421,7 +421,7 @@ void setup() {
   Serial.print("\r\n************ArduLora**************");  // Print a message indicating the start of the program.
   //Enable power for external sensor
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
+  digitalWrite(PB5, LOW);
   delay(100);  // Wait for 100 milliseconds.
   Wire.begin();  // Initialize the I2C communication.
   while (!sht3x.begin()) {  // Check if SHT3x sensor is detected.
@@ -470,7 +470,7 @@ void setup() {
   Serial.print("\r\n************ArduLora**************");  // Print a message indicating the start of the program.
   //Enable power for external sensor
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
+  digitalWrite(PB5, LOW);
   Wire.begin();  // Initialize the I2C communication.
   while (!bh1750.begin()) {  // Check if BH1750 sensor is detected.
     Serial.println("BH1750 not found !");  // Print a message if BH1750 sensor is not detected.
@@ -837,7 +837,7 @@ void setup() {
   Serial1.begin(9600);
   //Enable power for external sensor
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
+  digitalWrite(PB5, LOW);
   while (Serial1.available()) {
     Serial1.read();
   }
