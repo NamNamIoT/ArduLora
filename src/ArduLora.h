@@ -23,8 +23,8 @@
 #define ARDULORA_LED_TX        ARDULORA_LED_RED
 
 // Analog Inputs (0-10V range with onboard voltage divider)
-#define ARDULORA_AI1           PB4
-#define ARDULORA_AI2           PA10
+#define ARDULORA_AI1           PA10
+#define ARDULORA_AI2           PA15
 
 // Battery Monitoring
 #define ARDULORA_ADC_BAT       PB3

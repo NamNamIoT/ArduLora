@@ -13,9 +13,9 @@ When generating code, analyzing bugs, or providing assistance for this repositor
 *   **Legacy Code Warning:** Do not use older RUI3 v3.x API calls. Ensure callbacks like `recv_cb` take `rui_lora_p2p_recv_t` structs for LoRa P2P.
 
 ### 2. Hardware Mapping & Pinout
-*   **Modbus/RS485 Power:** The external sensor power is controlled by pin `PB5`. Always enable it in `setup()` using: `pinMode(PB5, OUTPUT); digitalWrite(PB5, HIGH);`
+*   **Modbus/RS485 Power:** The external sensor power is controlled by pin `PB5`. Always enable it in `setup()` using: `pinMode(PB5, OUTPUT); digitalWrite(PB5, LOW);`
 *   **Status LED:** Status LED is connected to `PA8`. Receive LED is often mapped to `PB2`.
-*   **Analog Input:** Use `PB4` (AI1) and `PA10` (AI2). Set resolution with `analogReadResolution(12);`. Voltage multiplier is typically `2.58`.
+*   **Analog Input:** Use `PA10` (AI1) and `PA15` (AI2). Set resolution with `analogReadResolution(12);`. Voltage multiplier is typically `2.58`.
 *   **I2C:** `PA12` is SCL, `PA11` is SDA.
 *   **Serial:** Hardware Serial1 is mapped to pins 4 & 5. Use `Serial1` or alias `Serial_Canopus` for RS485/Modbus.
 

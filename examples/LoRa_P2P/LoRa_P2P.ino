@@ -44,7 +44,7 @@ void send_cb(void) {
 void setup() {
   //Enable power for external sensor
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
+  digitalWrite(PB5, LOW);
 
   //Led PA8 as output
   pinMode(PA8, OUTPUT);

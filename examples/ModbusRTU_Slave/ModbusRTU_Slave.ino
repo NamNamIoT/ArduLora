@@ -10,7 +10,7 @@ void setup()
 {
   //Enable power for external sensor
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
+  digitalWrite(PB5, LOW);
 
   //Led PA8 as output
   pinMode(PA8, OUTPUT);
@@ -27,7 +27,7 @@ void setup()
 }
 void loop()
 {
-  int analog_In = analogRead(PB4); 
+  int analog_In = analogRead(PA10); 
   
   regBank.set(40001, analog_In);  //Update value for 40001 is analog_In
   slave.run();  //Run service modbus RTU slave

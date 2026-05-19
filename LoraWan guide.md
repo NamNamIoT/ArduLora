@@ -13,7 +13,7 @@ To get started, you will need:
 - **LoRaWAN Gateway** nearby (or use a public network like The Things Network)
 
 > [!NOTE]
-> ArduLora features a power-control pin (**PB5**) that must be set to `HIGH` to power on external sensors connected to the board's headers.
+> ArduLora features a power-control pin (**PB5**) that must be set to `LOW` to power on external sensors connected to the board's headers.
 
 
 ---

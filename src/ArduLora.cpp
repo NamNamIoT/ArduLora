@@ -7,7 +7,7 @@ ArduLoraClass::ArduLoraClass() {
 void ArduLoraClass::begin() {
     // Initialize power control pin
     pinMode(ARDULORA_SENSOR_POWER, OUTPUT);
-    digitalWrite(ARDULORA_SENSOR_POWER, LOW);
+    digitalWrite(ARDULORA_SENSOR_POWER, HIGH);
 
     // Initialize LEDs
     pinMode(ARDULORA_LED_YELLOW, OUTPUT);
@@ -19,7 +19,7 @@ void ArduLoraClass::begin() {
 }
 
 void ArduLoraClass::sensorPower(bool state) {
-    digitalWrite(ARDULORA_SENSOR_POWER, state ? HIGH : LOW);
+    digitalWrite(ARDULORA_SENSOR_POWER, state ? LOW : HIGH);
 }
 
 void ArduLoraClass::setLed(uint8_t ledPin, bool state) {

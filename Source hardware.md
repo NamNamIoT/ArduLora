@@ -12,8 +12,8 @@ This document contains the pinout mapping and detailed schematic diagrams for th
 | **PB2** | Blue LED |   
 | **PA11** | I2C_SDA |  
 | **PA12** | I2C_SCL |  
-| **PB4** | Analog Input 1 (0-10V) |  
-| **PA10** | Analog Input 2 (0-10V) |  
+| **PA10** | Analog Input 1 (0-10V) |  
+| **PA15** | Analog Input 2 (0-10V) |  
 | **PB5** | Sensor Power Enable (3.3V) | 
 | **PB6** | UART1_TX (RS485) |  
 | **PB7** | UART1_RX (RS485) |  

@@ -7,7 +7,7 @@ void setup() {
   Serial1.begin(9600);
   //Enable power for external sensor
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
+  digitalWrite(PB5, LOW);
   while (Serial1.available()) {
     Serial1.read();
   }

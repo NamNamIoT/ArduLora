@@ -10,7 +10,7 @@ void setup() {
   Serial.print("\r\n************ArduLora**************");  // Print a message indicating the start of the program.
   //Enable power for external sensor
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
+  digitalWrite(PB5, LOW);
   Wire.begin();  // Initialize the I2C communication.
   while (!bh1750.begin()) {  // Check if BH1750 sensor is detected.
     Serial.println("BH1750 not found !");  // Print a message if BH1750 sensor is not detected.

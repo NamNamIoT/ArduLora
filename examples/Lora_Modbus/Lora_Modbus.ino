@@ -7,7 +7,7 @@ void setup()
   Serial.println("RAK3172_Canopus LoRa P2P Example");
   Serial.println("------------------------------------------------------");
   pinMode(PB5, OUTPUT);
-  digitalWrite(PB5, HIGH);
+  digitalWrite(PB5, LOW);
   init_lora(868000000);
   Serial_modbus.begin(9600, RAK_CUSTOM_MODE);
   Serial_modbus.println("RAK3172_Canopus LoRa_Modbus tunnel Example");

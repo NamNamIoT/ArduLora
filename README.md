@@ -137,10 +137,10 @@ void setup() {
 }
 
 void loop() {
-  float AI1 = analogRead(PA10)*2.58;         // Read analog voltage from pin PB4 and store it in AI1.
+  float AI1 = analogRead(PA10)*2.58;         // Read analog voltage from pin PA10 and store it in AI1.
   Serial.printf("AI1 = %0.0fmV\r\n", AI1); // Print the analog voltage value of AI1 in millivolts.
 
-  float AI2 = analogRead(PA15)*2.58;         // Read analog voltage from pin PA10 and store it in AI2.
+  float AI2 = analogRead(PA15)*2.58;         // Read analog voltage from pin PA15 and store it in AI2.
   Serial.printf("AI2 = %0.0fmV\r\n", AI2); // Print the analog voltage value of AI2 in millivolts.
 
   delay(1000);  // Wait for 1 second before the next iteration of the loop.
@@ -295,7 +295,7 @@ void setup()
 }
 void loop()
 {
-  int analog_In = analogRead(PB4); 
+  int analog_In = analogRead(PA10); 
   
   regBank.set(40001, analog_In);  //Update value for 40001 is analog_In
   slave.run();  //Run service modbus RTU slave

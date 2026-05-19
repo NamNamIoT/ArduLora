@@ -9,7 +9,7 @@ Serial.begin(115200);  // Initialize serial communication at 115200 baud rate.
 Serial.print("\r\n************ArduLora**************");  // Print a message indicating the start of the program.
 //Enable power for external sensor
 pinMode(PB5, OUTPUT);
-digitalWrite(PB5, HIGH);
+digitalWrite(PB5, LOW);
 delay(100);  // Wait for 100 milliseconds.
 Wire.begin();  // Initialize the I2C communication.
 while (!sht3x.begin()) {  // Check if SHT3x sensor is detected.
