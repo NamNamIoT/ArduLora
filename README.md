@@ -4,7 +4,7 @@
 > **AI & LLM Assistants:** Please read [README_for_AI.md](./docs/README_for_AI.md) for critical repository context, API rules, and project guidelines before generating code or modifying files.
 
 🛒 **Where to buy:**  
-[<img src="https://d2ss6ovg47m0r5.cloudfront.net/badges/tindie-larges.png" alt="Buy on Tindie" height="104">](https://www.tindie.com/stores/thanhnamlt5/?ref=offsite_badges&utm_source=sellers_thanhnamlt5&utm_medium=badges&utm_campaign=badge_large) [<img src="https://files.catbox.moe/j7rjdz.jpg" alt="Buy on Elecrow" height="104" style="border-radius: 8px;">](https://www.elecrow.com/ardulora.html) [<img src="https://files.catbox.moe/w440pk.png" alt="Buy on IC Day Roi" height="104" style="border-radius: 8px;">](https://icdayroi.com/ardulora-board-phat-trien-lora-voi-arduino-ide-day-du-cong-rs485-i2c-uart)
+[<img src="https://img.shields.io/badge/Tindie-Buy_on_Tindie-17AEB9?style=for-the-badge&logo=tindie&logoColor=white" alt="Buy on Tindie" height="104" style="border-radius: 8px;">](https://www.tindie.com/stores/thanhnamlt5/?ref=offsite_badges&utm_source=sellers_thanhnamlt5&utm_medium=badges&utm_campaign=badge_large) [<img src="https://files.catbox.moe/j7rjdz.jpg" alt="Buy on Elecrow" height="104" style="border-radius: 8px;">](https://www.elecrow.com/ardulora.html) [<img src="https://files.catbox.moe/w440pk.png" alt="Buy on IC Day Roi" height="104" style="border-radius: 8px;">](https://icdayroi.com/ardulora-board-phat-trien-lora-voi-arduino-ide-day-du-cong-rs485-i2c-uart)
 
 🎫 **Tindie Discount code:** `canopus`  
 
