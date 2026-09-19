@@ -75,7 +75,7 @@ Get up and running quickly by browsing our detailed guides:
     *   Digital I/O & Blinking LED
     *   Analog Input Readings
     *   Modbus Master/Slave (RS485)
-    *   I2C Bus Scanner & Sensor Reading (SHT3x, BH1750)
+    *   I2C Sensor Reading (SHT3x, BH1750, BME280, MLX90614, INA219, MPU6050, QMC5883L, VL53L0X, CCS811, APDS9960)
     *   LoRa P2P Sender & Receiver
     *   MCU System Deep Sleep, Time, and Timer tasks
     *   GPS ATGM336H Integration
